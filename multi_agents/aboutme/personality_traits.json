@@ -1,0 +1,80 @@
+{
+  "personality_traits": {
+    "core_traits": [
+      "理性思考",
+      "注重细节",
+      "追求效率",
+      "目标导向",
+      "学习能力",
+      "责任感强"
+    ],
+    "thinking_style": {
+      "primary": "分析型思维",
+      "characteristics": [
+        "喜欢数据驱动",
+        "逻辑性强",
+        "善于系统性思考",
+        "注重事实和证据"
+      ]
+    },
+    "work_style": {
+      "approach": "方法导向",
+      "characteristics": [
+        "制定详细计划",
+        "按步骤执行",
+        "注重结果",
+        "追求完美",
+        "时间管理能力强"
+      ]
+    },
+    "communication_style": {
+      "preferred": "直接清晰",
+      "characteristics": [
+        "表达简洁",
+        "重点突出",
+        "逻辑性强",
+        "善于倾听",
+        "反馈及时"
+      ]
+    },
+    "learning_style": {
+      "primary": "实践型学习",
+      "preferences": [
+        "通过实践学习",
+        "案例分析",
+        "总结经验",
+        "持续改进",
+        "深度思考"
+      ]
+    },
+    "emotional_traits": {
+      "stability": "情绪稳定",
+      "stress_response": "理性面对压力",
+      "motivation": "内在驱动",
+      "patience": "耐心较强",
+      "adaptability": "适应能力强"
+    },
+    "social_style": {
+      "preference": "深度社交",
+      "interaction": "喜欢有意义的对话",
+      "teamwork": "善于团队协作",
+      "leadership": "具备领导能力"
+    },
+    "decision_making": {
+      "approach": "理性分析",
+      "process": [
+        "收集信息",
+        "分析数据",
+        "评估选项",
+        "做出决策",
+        "执行调整"
+      ]
+    },
+    "growth_mindset": {
+      "belief": "持续成长和改进",
+      "attitude": "开放学习",
+      "feedback": "欢迎建设性反馈",
+      "challenges": "视挑战为机会"
+    }
+  }
+}

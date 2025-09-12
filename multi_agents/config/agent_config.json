@@ -1,0 +1,71 @@
+{
+  "agents": {
+    "news_agent": {
+      "name": "新闻秋",
+      "description": "负责每日新闻收集和简报生成",
+      "trigger": "morning_greeting",
+      "enabled": true,
+      "schedule": "09:00",
+      "dependencies": [],
+      "output_format": "markdown",
+      "mcp_tools": ["firecrawl", "lark"]
+    },
+    "outfit_agent": {
+      "name": "穿搭秋",
+      "description": "根据天气和场合提供穿搭建议",
+      "trigger": "after_news",
+      "enabled": true,
+      "dependencies": ["news_agent"],
+      "output_format": "markdown",
+      "mcp_tools": ["weather", "jimeng", "lark"]
+    },
+    "daily_report_agent": {
+      "name": "日报秋",
+      "description": "生成工作日报并同步到飞书",
+      "trigger": "after_outfit",
+      "enabled": true,
+      "dependencies": ["outfit_agent"],
+      "output_format": "markdown",
+      "mcp_tools": ["lark"]
+    },
+    "coach_agent": {
+      "name": "教练秋",
+      "description": "健康管理和运动建议",
+      "trigger": "after_daily_report",
+      "enabled": true,
+      "dependencies": ["daily_report_agent"],
+      "output_format": "markdown",
+      "mcp_tools": ["lark"]
+    },
+    "reflection_agent": {
+      "name": "反思秋",
+      "description": "深度反思和个人成长分析",
+      "trigger": "work_end",
+      "enabled": true,
+      "dependencies": ["news_agent", "outfit_agent", "daily_report_agent", "coach_agent"],
+      "output_format": "markdown",
+      "mcp_tools": ["lark"]
+    }
+  },
+  "workflow": {
+    "auto_start": true,
+    "sequence": [
+      "news_agent",
+      "outfit_agent", 
+      "daily_report_agent",
+      "coach_agent",
+      "reflection_agent"
+    ],
+    "error_handling": {
+      "retry_count": 3,
+      "timeout_seconds": 300,
+      "fallback_mode": "manual"
+    }
+  },
+  "data_storage": {
+    "base_path": "./data",
+    "backup_enabled": true,
+    "backup_frequency": "daily",
+    "cleanup_days": 90
+  }
+}

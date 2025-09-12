@@ -1,0 +1,81 @@
+{
+  "workflow": {
+    "daily_sequence": {
+      "name": "日常流程",
+      "description": "每日标准工作流程",
+      "steps": [
+        {
+          "step": 1,
+          "agent": "news_agent",
+          "name": "获取新闻",
+          "trigger": "morning_greeting",
+          "required_inputs": [],
+          "outputs": ["news_brief"],
+          "estimated_duration": "5-10分钟"
+        },
+        {
+          "step": 2,
+          "agent": "outfit_agent",
+          "name": "穿搭建议",
+          "trigger": "auto_after_news",
+          "required_inputs": ["news_brief", "weather_info", "user_occasion"],
+          "outputs": ["outfit_suggestion", "outfit_image"],
+          "estimated_duration": "3-5分钟"
+        },
+        {
+          "step": 3,
+          "agent": "daily_report_agent",
+          "name": "工作日报",
+          "trigger": "user_input",
+          "required_inputs": ["work_summary"],
+          "outputs": ["daily_report"],
+          "estimated_duration": "10-15分钟"
+        },
+        {
+          "step": 4,
+          "agent": "coach_agent",
+          "name": "健康建议",
+          "trigger": "auto_after_report",
+          "required_inputs": ["weight_data", "health_goals"],
+          "outputs": ["health_plan"],
+          "estimated_duration": "5-8分钟"
+        },
+        {
+          "step": 5,
+          "agent": "reflection_agent",
+          "name": "深度反思",
+          "trigger": "work_end_command",
+          "required_inputs": ["all_daily_data", "user_reflection"],
+          "outputs": ["reflection_report"],
+          "estimated_duration": "15-20分钟"
+        }
+      ]
+    },
+    "triggers": {
+      "morning_greeting": {
+        "patterns": ["早上好", "早安", "morning", "今天开始"],
+        "response": "早上好！我现在为你获取今天的新闻简报。"
+      },
+      "work_end_command": {
+        "patterns": ["工作结束", "下班了", "今天结束了", "work end"],
+        "response": "今天辛苦了！让我们一起来回顾和反思今天的工作。"
+      }
+    },
+    "user_interactions": {
+      "outfit_occasion": {
+        "question": "今天要去什么场合呢？",
+        "options": ["公司", "约会", "运动", "休闲", "正式场合", "其他"],
+        "type": "single_choice"
+      },
+      "work_summary": {
+        "question": "今天做了什么工作？有什么收获？",
+        "type": "text_input"
+      },
+      "weight_input": {
+        "question": "今天称体重了吗？多少斤？",
+        "type": "number_input",
+        "unit": "斤"
+      }
+    }
+  }
+}

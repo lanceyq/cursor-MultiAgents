@@ -1,0 +1,66 @@
+{
+  "health_profile": {
+    "basic_info": {
+      "height": 165,
+      "current_weight": 55,
+      "target_weight": 53,
+      "weight_history": [
+        {"date": "2025-09-01", "weight": 56},
+        {"date": "2025-09-08", "weight": 55.5},
+        {"date": "2025-09-11", "weight": 55}
+      ],
+      "bmi": 20.2,
+      "health_status": "良好"
+    },
+    "fitness_goals": {
+      "primary_goal": "减脂塑形",
+      "target_weight": 53,
+      "timeline": "3个月",
+      "focus_areas": ["全身", "腰腹", "臀部"],
+      "motivation": "提升健康水平，增强体质"
+    },
+    "exercise_preferences": {
+      "preferred_activities": ["瑜伽", "跑步", "游泳", "健身", "普拉提"],
+      "exercise_frequency": "每周3-4次",
+      "exercise_duration": "每次45-60分钟",
+      "exercise_time": "早上或晚上",
+      "intensity_level": "中等强度",
+      "avoid_exercises": ["高强度间歇训练", "过于激烈的运动"]
+    },
+    "diet_preferences": {
+      "diet_type": "均衡饮食",
+      "food_allergies": [],
+      "food_dislikes": ["过于油腻", "过于辛辣"],
+      "meal_schedule": {
+        "breakfast": "07:30-08:00",
+        "lunch": "12:00-13:00",
+        "dinner": "19:00-20:00",
+        "snacks": "水果或坚果"
+      },
+      "nutrition_focus": {
+        "calories": 1500,
+        "protein": "充足",
+        "carbs": "复合碳水",
+        "fats": "健康脂肪",
+        "water_intake": "每天2000ml"
+      },
+      "supplements": ["维生素D", "钙片", "蛋白粉（运动后）"]
+    },
+    "health_tracking": {
+      "daily_metrics": ["体重", "运动时间", "饮水量", "睡眠质量"],
+      "weekly_metrics": ["体重变化", "运动频率", "身体围度"],
+      "monthly_metrics": ["整体健康评估", "目标进度"]
+    },
+    "health_restrictions": {
+      "medical_conditions": [],
+      "physical_limitations": ["膝盖轻度不适"],
+      "dietary_restrictions": []
+    },
+    "motivation_factors": [
+      "健康身体是工作的基础",
+      "提升精力和专注力",
+      "改善体型和气质",
+      "预防慢性疾病"
+    ]
+  }
+}

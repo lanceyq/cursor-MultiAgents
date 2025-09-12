@@ -1,0 +1,51 @@
+{
+  "work_profile": {
+    "current_position": "产品经理",
+    "company": "互联网公司",
+    "industry": "AI/科技",
+    "experience_years": 5,
+    "work_focus": ["AI产品", "用户体验", "数据分析", "产品设计"],
+    "skills": [
+      "产品规划",
+      "用户研究",
+      "数据分析",
+      "项目管理",
+      "沟通协调",
+      "AI技术应用"
+    ],
+    "daily_responsibilities": [
+      "需求分析和产品规划",
+      "用户调研和需求挖掘",
+      "与开发团队协作",
+      "产品数据分析和优化",
+      "竞品分析和市场研究",
+      "文档撰写和演示"
+    ],
+    "work_preferences": {
+      "work_environment": "安静舒适的环境",
+      "work_hours": "09:00-18:00",
+      "meeting_preference": "高效简洁",
+      "communication_style": "直接清晰",
+      "work_style": "结果导向，注重细节",
+      "decision_making": "数据驱动"
+    },
+    "career_goals": {
+      "short_term": ["成为高级产品经理", "深入AI领域"],
+      "medium_term": ["产品总监", "建立个人品牌"],
+      "long_term": ["产品专家", "创业或咨询"]
+    },
+    "learning_focus": [
+      "AI技术应用",
+      "产品管理方法论",
+      "数据分析技能",
+      "用户体验设计",
+      "商业分析能力"
+    ],
+    "work_challenges": [
+      "技术理解深度",
+      "跨部门协作",
+      "时间管理",
+      "工作生活平衡"
+    ]
+  }
+}

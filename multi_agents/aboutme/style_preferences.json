@@ -1,0 +1,53 @@
+{
+  "style_profile": {
+    "overall_style": "简约知性，职场专业",
+    "color_preferences": {
+      "favorite_colors": ["黑色", "白色", "灰色", "蓝色", "驼色"],
+      "avoid_colors": ["过于鲜艳的颜色", "荧光色"],
+      "seasonal_preferences": {
+        "spring": ["浅色系", "粉色", "薄荷绿"],
+        "summer": ["白色", "蓝色", "亚麻色"],
+        "autumn": ["驼色", "咖啡色", "酒红色"],
+        "winter": ["深色系", "灰色", "黑色"]
+      }
+    },
+    "clothing_preferences": {
+      "work_attire": {
+        "style": "商务休闲",
+        "preferred_items": ["衬衫", "西装外套", "连衣裙", "西装裤", "针织衫"],
+        "avoid_items": ["过于暴露", "过于花哨", "运动装"],
+        "accessories": ["简约手表", "丝巾", "简约项链"]
+      },
+      "casual_attire": {
+        "style": "舒适简约",
+        "preferred_items": ["T恤", "牛仔裤", "休闲裤", "针织衫", "运动鞋"],
+        "avoid_items": ["过于紧身", "过于宽松"]
+      },
+      "formal_occasions": {
+        "style": "优雅正式",
+        "preferred_items": ["正式礼服", "高跟鞋", "精致配饰"],
+        "color_theme": "深色系为主"
+      }
+    },
+    "body_info": {
+      "height": 165,
+      "weight": 55,
+      "body_type": "标准型",
+      "skin_tone": "偏白",
+      "allergies": ["对某些材质敏感"]
+    },
+    "shopping_preferences": {
+      "budget_range": "中等价位",
+      "favorite_brands": ["优衣库", "COS", "Massimo Dutti", "Zara"],
+      "shopping_frequency": "每月1-2次",
+      "sustainability_focus": true
+    },
+    "style_rules": [
+      "舒适度优先",
+      "适合场合",
+      "体现专业形象",
+      "便于活动",
+      "易于搭配"
+    ]
+  }
+}

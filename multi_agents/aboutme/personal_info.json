@@ -1,0 +1,33 @@
+{
+  "basic_info": {
+    "name": "秋芝",
+    "age": 28,
+    "occupation": "产品经理",
+    "location": "上海",
+    "interests": ["AI技术", "产品设计", "阅读", "健身", "旅行"],
+    "personality": "理性思考型，注重细节，追求效率"
+  },
+  "lifestyle": {
+    "daily_routine": {
+      "wake_up": "07:30",
+      "work_start": "09:00",
+      "lunch_break": "12:00-13:00",
+      "work_end": "18:00",
+      "dinner": "19:00",
+      "sleep": "23:00"
+    },
+    "work_environment": "互联网公司，办公室环境",
+    "commute_method": "地铁",
+    "weekend_activities": ["健身", "阅读", "社交", "学习新技术"]
+  },
+  "goals": {
+    "career": ["成为资深产品专家", "提升AI领域知识", "建立个人品牌"],
+    "health": ["保持健康体重", "每周运动3-4次", "改善睡眠质量"],
+    "personal": ["阅读50本书", "学习新技能", "扩大社交圈"]
+  },
+  "preferences": {
+    "communication_style": "直接、清晰、有条理",
+    "work_style": "目标导向、注重效率、喜欢深度思考",
+    "learning_style": "实践型、喜欢案例分析、善于总结"
+  }
+}
