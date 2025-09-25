@@ -1,0 +1,42 @@
+[tool.poetry]
+name = "memsci"
+version = "0.1.0"
+description = "memsci"
+authors = ["Ke Sun <sunke@redbearai.com>"]
+readme = "README.md"
+packages = [
+    { include = "data_preprocessing", from = "src" },
+    { include = "database", from = "src" },
+    { include = "knowledge_extraction", from = "src" },
+    { include = "llm_tools", from = "src" },
+    { include = "models", from = "src" },
+    { include = "ontology", from = "src" },
+    { include = "utils", from = "src" }
+]
+
+[tool.poetry.dependencies]
+python = ">=3.12,<4.0"
+pyyaml = "*"
+"python-dotenv" = "*"
+openai = ">=1.102.0,<2.0.0"
+pydantic = ">=2.11.7,<3.0.0"
+pytest = ">=8.4.1,<9.0.0"
+litellm = ">=1.76.1,<2.0.0"
+instructor = ">=1.11.2,<2.0.0"
+"pytest-asyncio" = "*"
+chardet = "*"
+jinja2 = ">=3.1.6,<4.0.0"
+chonkie = {version = ">=1.2.1,<2.0.0", extras = ["model2vec"]}
+neo4j = ">=5.28.2,<6.0.0"
+numpy = ">=2.3.2,<3.0.0"
+requests = "^2.32.5"
+urllib3 = "^2.5.0"
+charset-normalizer = "^3.4.3"
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]

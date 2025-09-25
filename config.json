@@ -1,0 +1,78 @@
+{
+  "llm_list": [
+    {
+      "llm_name": "openai/qwen2.5-14b",
+      "api_base": "http://43.137.4.24:9090/v1",
+      "api_key": "OPENAI_API_KEY"
+    },
+    {
+      "llm_name": "openai/qwen3-14b",
+      "api_base": "http://43.137.4.24:9090/v1",
+      "api_key": "OPENAI_API_KEY"
+    },
+    {
+      "llm_name": "openai/deepseek-r1-0528-qwen3-8b",
+      "api_base": "http://43.137.4.24:9090/v1",
+      "api_key": "OPENAI_API_KEY"
+    },
+    {
+      "llm_name": "openai/qwen3-235b-a22b-instruct-2507",
+      "api_base": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+      "api_key": "DASHSCOPE_API_KEY"
+    }
+    ,
+    {
+      "llm_name": "openai/qwen-plus",
+      "api_base": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+      "api_key": "DASHSCOPE_API_KEY"
+    },
+    {
+      "llm_name": "agenta/classification",
+      "api_base": "https://cloud.agenta.ai/services/completion/run",
+      "api_key": "AGENTA_API_KEY"
+    }
+  ],
+  "embeddding_list": [
+    {
+      "embedding_name": "openai/nomic-embed-text:v1.5",
+      "api_base": "http://119.45.239.97:11434/v1",
+      "dimension": 768
+    }
+  ],
+  "neo4j": {
+    "uri": "bolt://1.94.111.67:7687",
+    "username": "neo4j"
+  },
+  "chunker_list": [
+    {
+      "chunker_strategy": "SemanticChunker",
+      "embedding_model": "BAAI/bge-m3",
+      "chunk_size": 2048,
+      "threshold": 0.8,
+      "min_sentences": 10,
+      "language": "zh",
+      "skip_window": 1
+    },
+    {
+      "chunker_strategy": "RecursiveChunker",
+      "embedding_model": "BAAI/bge-m3",
+      "chunk_size": 2048,
+      "threshold": 0.8,
+      "min_sentences": 2,
+      "language": "zh",
+      "skip_window": 0
+    },
+    {
+      "chunker_strategy": "LateChunker",
+      "embedding_model": "all-MiniLM-L6-v2",
+      "chunk_size": 2048,
+      "min_characters_per_chunk": 24
+    },
+    {
+      "chunker_strategy": "NeuralChunker",
+      "embedding_model": "mirth/chonky_modernbert_base_1",
+      "min_characters_per_chunk": 24
+    }
+  ]
+  
+}

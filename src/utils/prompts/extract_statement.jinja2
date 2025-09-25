@@ -1,0 +1,175 @@
+{% macro tidy(name) -%}
+  {{ name.replace('_', ' ')}}
+{%- endmacro %}
+
+
+===Tasks===
+
+Your task is to identify and extract atomic declarative statements from the provided conversational chunk based on the detailed extraction guidelines. 
+Each statement must be labeled as per the criteria mentioned below.
+
+===Inputs===
+{% if inputs %}
+{% for key, val in inputs.items() %}
+- {{ key }}: {{val}}
+{% endfor %}
+{% endif %}
+
+
+===Extraction Guidelines===
+
+Core Principles:
+
+Atomic & Clear: Structure statements to clearly show a single subject-predicate-object relationship. It is better to have multiple smaller statements than one complex one.
+
+Context-Independent: Statements must be understandable without needing to read the entire conversation.
+
+Minimal Modification: Preserve the original meaning and wording as much as possible, only modifying to meet the guidelines below.
+
+Context Resolution Requirements:
+- Resolve demonstrative pronouns ("that," "this," "those","这个", "那个") to their specific referents
+- If a statement contains vague references that cannot be resolved from the conversation context, either:
+  a) Expand the statement to include the missing context from earlier in the conversation
+  b) Mark the statement as requiring additional context
+  c) Skip extraction if the statement becomes meaningless without context
+
+Conversational Context & Co-reference Resolution:
+- Attribute every statement to the participant who uttered it.
+- If the participant list provides a name for a speaker (e.g., "李雪 (用户)"), use the specific name ("李雪") in the extracted statement, not the generic role ("用户").
+- Resolve all pronouns to the specific person or entity from the conversation’s context.
+- Identify and resolve abstract references to their specific names if mentioned.
+- Expand abbreviations and acronyms to their full form.
+
+Filtering and Formatting:
+
+- Extract only declarative statements.
+  DO NOT extract questions, commands, greetings, or conversational filler.
+Temporal Precision:
+
+Include any explicit dates, times, or quantitative qualifiers.
+If a sentence describes both the start of an event (static) and its ongoing nature (dynamic), extract both as separate statements.
+
+{%- if definitions %}
+  {%- for section_key, section_dict in definitions.items() %}
+==== {{ tidy(section_key) | upper }} DEFINITIONS & GUIDANCE ====
+    {%- for category, details in section_dict.items() %}
+{{ loop.index }}. {{ category }}
+- Definition: {{ details.get("definition", "") }}
+    {% endfor -%}
+  {% endfor -%}
+{% endif -%}
+
+===Examples===
+Example 1: 中文对话示例
+Example Chunk: """
+日期: 2024年3月15日
+参与者:
+
+张曼婷 (用户)
+
+小助手 (AI助手)
+
+用户: "我最近在尝试水彩画，画了一些花朵。"
+
+AI: "水彩画很有趣！水彩颜料通常由颜料和阿拉伯树胶等粘合剂混合而成。你觉得怎么样？"
+
+用户: "我觉得色彩搭配还有提升的空间，不过我很喜欢玫瑰和百合这两种花。"
+"""
+
+Example Output: {
+  "statements": [
+    {
+      "statement": "张曼婷最近在尝试水彩画。",
+      "statement_type": "FACT",
+      "temporal_type": "DYNAMIC",
+      "relevance": "RELEVANT"
+    },
+    {
+      "statement": "张曼婷画了一些花朵。",
+      "statement_type": "FACT",
+      "temporal_type": "DYNAMIC",
+      "relevance": "RELEVANT"
+    },
+    {
+      "statement": "水彩颜料通常由颜料和阿拉伯树胶等粘合剂混合而成。",
+      "statement_type": "FACT",
+      "temporal_type": "ATEMPORAL",
+      "relevance": "IRRELEVANT"
+    },
+    {
+      "statement": "张曼婷觉得水彩画的色彩搭配还有提升的空间。",
+      "statement_type": "OPINION",
+      "temporal_type": "STATIC",
+      "relevance": "RELEVANT"
+    },
+    {
+      "statement": "张曼婷很喜欢玫瑰和百合。",
+      "statement_type": "FACT",
+      "temporal_type": "STATIC",
+      "relevance": "RELEVANT"
+    }
+  ]
+}
+
+Example 2: 另一个中文对话示例
+Example Chunk: """
+日期: 2024年5月20日
+参与者:
+
+李雪 (用户)
+
+小助手 (AI助手)
+
+用户: "我最近看了一部电影《时间旅行者的妻子》。"
+
+AI: "听起来很不错！"
+
+用户: "我最喜欢其中跨越时间的爱情。"
+"""
+
+Example Output: {
+  "statements": [
+    {
+      "statement": "李雪最近看了一部电影《时间旅行者的妻子》。",
+      "statement_type": "FACT",
+      "temporal_type": "STATIC",
+      "relevance": "RELEVANT"
+    },
+    {
+      "statement": "李雪最喜欢《时间旅行者的妻子》中跨越时间的爱情。",
+      "statement_type": "FACT",
+      "temporal_type": "STATIC",
+      "relevance": "RELEVANT"
+    }
+  ]
+}
+===End of Examples===
+
+===Reflection Process===
+
+After extracting statements, perform the following self-review steps:
+
+**Step 1: Attribution Check**
+- Confirm every statement is properly attributed to the correct speaker
+- Verify speaker names are used consistently throughout
+- Check that AI assistant statements are properly attributed
+
+**Step 2: Completeness Review**
+- Ensure no important declarative statements were missed
+- Verify complex sentences are broken into atomic statements
+- Check that temporal information is preserved
+
+**Step 3: Classification Validation**
+- Review statement_type classifications (FACT/OPINION/PREDICTION/SUGGESTION)
+- Verify temporal_type assignments (STATIC/DYNAMIC/ATEMPORAL)
+- Ensure classifications align with the provided definitions
+
+**Step 4: Final Quality Check**
+- Remove any questions, commands, or conversational filler
+- Verify JSON format compliance
+- Confirm output language matches input language
+
+**Output format**
+Return only a list of extracted labelled statements in the JSON ARRAY of objects that match the schema below:
+{{ json_schema }}
+The output language should always be the same as the input language..

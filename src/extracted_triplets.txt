@@ -1,0 +1,1588 @@
+=== EXTRACTED TRIPLETS (98 total) ===
+
+Triplet 1:
+  Subject: 张曼婷 (ID: 0)
+  Predicate: IS_DOING
+  Object: 水彩画 (ID: 1)
+
+Triplet 2:
+  Subject: 张曼婷 (ID: 0)
+  Predicate: IS_DOING
+  Object: 画了一些花朵 (ID: 1)
+
+Triplet 3:
+  Subject: 张曼婷 (ID: 0)
+  Predicate: FEELS
+  Object: 水彩画的色彩搭配还有提升的空间 (ID: 1)
+
+Triplet 4:
+  Subject: 张曼婷 (ID: 0)
+  Predicate: LIKES
+  Object: 玫瑰 (ID: 1)
+
+Triplet 5:
+  Subject: 张曼婷 (ID: 0)
+  Predicate: LIKES
+  Object: 百合 (ID: 2)
+
+Triplet 6:
+  Subject: 张曼婷 (ID: 0)
+  Predicate: IS_DOING
+  Object: 练习肖邦的夜曲 (ID: 1)
+
+Triplet 7:
+  Subject: 张曼婷 (ID: 0)
+  Predicate: FEELS
+  Object: 右手的旋律和左手的和弦很难协调 (ID: 1)
+
+Triplet 8:
+  Subject: 张曼婷 (ID: 0)
+  Predicate: IS_DOING
+  Object: 读《小王子》 (ID: 1)
+
+Triplet 9:
+  Subject: 张曼婷 (ID: 0)
+  Predicate: FEELS
+  Object: 狐狸说的那句话 (ID: 1)
+
+Triplet 10:
+  Subject: 张曼婷 (ID: 0)
+  Predicate: FEELS
+  Object: 这句话 (ID: 1)
+  Value: 感触颇深
+
+Triplet 11:
+  Subject: 张曼婷 (ID: 0)
+  Predicate: FEELS
+  Object: 更加用心去观察 (ID: 1)
+
+Triplet 12:
+  Subject: 张曼婷 (ID: 0)
+  Predicate: FEELS
+  Object: 放松 (ID: 1)
+
+Triplet 13:
+  Subject: 张曼婷 (ID: 0)
+  Predicate: FEELS
+  Object: 静下心来思考 (ID: 1)
+
+Triplet 14:
+  Subject: 张曼婷 (ID: 0)
+  Predicate: LIKES
+  Object: 龙井茶 (ID: 1)
+
+Triplet 15:
+  Subject: 张曼婷 (ID: 0)
+  Predicate: IS_DOING
+  Object: 去公园 (ID: 1)
+
+Triplet 16:
+  Subject: 张曼婷 (ID: 0)
+  Predicate: FEELS
+  Object: 不擅长用文字表达 (ID: 1)
+
+Triplet 17:
+  Subject: 张曼婷 (ID: 0)
+  Predicate: IS_DOING
+  Object: 准备睡觉 (ID: 1)
+
+Triplet 18:
+  Subject: 王峰 (ID: 0)
+  Predicate: IS_DOING
+  Object: 跑步 (ID: 1)
+
+Triplet 19:
+  Subject: 王峰 (ID: 0)
+  Predicate: 追上
+  Object: 穿着古装的团队 (ID: 2)
+
+Triplet 20:
+  Subject: 王峰 (ID: 0)
+  Predicate: FEELS
+  Object: 对历史剧感兴趣 (ID: 1)
+
+Triplet 21:
+  Subject: 王峰 (ID: 0)
+  Predicate: IS_DOING
+  Object: 读《二战全史》 (ID: 1)
+
+Triplet 22:
+  Subject: 王峰 (ID: 0)
+  Predicate: IS_DOING
+  Object: 访问抗战纪念馆 (ID: 1)
+  Value: 下个月
+
+Triplet 23:
+  Subject: 王峰 (ID: 0)
+  Predicate: LIKES
+  Object: 打篮球 (ID: 1)
+
+Triplet 24:
+  Subject: 王峰 (ID: 0)
+  Predicate: IS_DOING
+  Object: 小前锋 (ID: 1)
+
+Triplet 25:
+  Subject: 王峰 (ID: 0)
+  Predicate: LIKES
+  Object: 快攻 (ID: 1)
+
+Triplet 26:
+  Subject: 王峰 (ID: 0)
+  Predicate: LIKES
+  Object: 远投 (ID: 2)
+
+Triplet 27:
+  Subject: 王峰 (ID: 0)
+  Predicate: IS_DOING
+  Object: 新的突破技巧 (ID: 1)
+
+Triplet 28:
+  Subject: 王峰 (ID: 0)
+  Predicate: LIKES
+  Object: 攀岩 (ID: 1)
+
+Triplet 29:
+  Subject: 王峰 (ID: 0)
+  Predicate: IS_DOING
+  Object: 核心力量训练 (ID: 1)
+
+Triplet 30:
+  Subject: 王峰 (ID: 0)
+  Predicate: IS_DOING
+  Object: 特定的体能训练 (ID: 1)
+
+Triplet 31:
+  Subject: 王峰 (ID: 0)
+  Predicate: HAS
+  Object: 水 (ID: 1)
+  Value: 足够的
+
+Triplet 32:
+  Subject: 王峰 (ID: 0)
+  Predicate: HAS
+  Object: 食物 (ID: 2)
+  Value: 足够的
+
+Triplet 33:
+  Subject: 王峰 (ID: 0)
+  Predicate: HAS_A
+  Object: 急救包 (ID: 1)
+
+Triplet 34:
+  Subject: 王峰 (ID: 0)
+  Predicate: HAS_A
+  Object: 多功能刀具 (ID: 2)
+
+Triplet 35:
+  Subject: 王峰 (ID: 0)
+  Predicate: IS_DOING
+  Object: 拍照 (ID: 1)
+
+Triplet 36:
+  Subject: 王峰 (ID: 0)
+  Predicate: IS_DOING
+  Object: 独自前行 (ID: 1)
+
+Triplet 37:
+  Subject: 王峰 (ID: 0)
+  Predicate: IS_DOING
+  Object: 徒步 (ID: 1)
+
+Triplet 38:
+  Subject: 王峰 (ID: 0)
+  Predicate: LIKES
+  Object: 和朋友一起 (ID: 2)
+
+Triplet 39:
+  Subject: 王峰 (ID: 0)
+  Predicate: FEELS
+  Object: 遇到过一次迷路的小狗 (ID: 1)
+
+Triplet 40:
+  Subject: 王峰 (ID: 0)
+  Predicate: IS_DOING
+  Object: 写一本关于战术演变的书 (ID: 1)
+
+Triplet 41:
+  Subject: 王峰 (ID: 0)
+  Predicate: IS_DOING
+  Object: 研究越战期间的丛林战术 (ID: 1)
+
+Triplet 42:
+  Subject: 王峰 (ID: 0)
+  Predicate: HAS_ATTRIBUTE
+  Object: 20分 (ID: 1)
+
+Triplet 43:
+  Subject: 王峰 (ID: 0)
+  Predicate: HAS_ATTRIBUTE
+  Object: 助攻 (ID: 2)
+
+Triplet 44:
+  Subject: 王峰 (ID: 0)
+  Predicate: HAS_ATTRIBUTE
+  Object: 抢断 (ID: 3)
+
+Triplet 45:
+  Subject: 王峰团队 (ID: 0)
+  Predicate: IS_DOING
+  Object: 团队配合越来越默契 (ID: 1)
+
+Triplet 46:
+  Subject: 王峰 (ID: 0)
+  Predicate: IS_DOING
+  Object: 练习篮球 (ID: 1)
+  Value: 两次
+
+Triplet 47:
+  Subject: 王峰 (ID: 0)
+  Predicate: IS_DOING
+  Object: 徒步 (ID: 1)
+
+Triplet 48:
+  Subject: 王峰 (ID: 0)
+  Predicate: IS_DOING
+  Object: 探索新路线 (ID: 1)
+
+Triplet 49:
+  Subject: 那条路线 (ID: 0)
+  Predicate: HAS_ATTRIBUTE
+  Object: 风景特别好 (ID: 1)
+
+Triplet 50:
+  Subject: 路线 (ID: 0)
+  Predicate: HAS_A
+  Object: 小瀑布 (ID: 1)
+
+Triplet 51:
+  Subject: 那条路线 (ID: 0)
+  Predicate: HAS_A
+  Object: 观景台 (ID: 1)
+
+Triplet 52:
+  Subject: 李雪 (ID: 0)
+  Predicate: Mentions
+  Object: 电影《时间旅行者的妻子》 (ID: 1)
+
+Triplet 53:
+  Subject: 李雪 (ID: 0)
+  Predicate: FEELS
+  Object: 跨越时间的爱情 (ID: 1)
+
+Triplet 54:
+  Subject: 李雪 (ID: 0)
+  Predicate: IS_DOING
+  Object: 去了一个小众的海滩 (ID: 1)
+
+Triplet 55:
+  Subject: 沙子 (ID: 0)
+  Predicate: IS_A
+  Object: 粉红色 (ID: 1)
+
+Triplet 56:
+  Subject: 李雪 (ID: 0)
+  Predicate: HAS_A
+  Object: 贝壳 (ID: 1)
+
+Triplet 57:
+  Subject: 李雪 (ID: 0)
+  Predicate: IS_DOING
+  Object: 手链 (ID: 2)
+
+Triplet 58:
+  Subject: 李雪 (ID: 0)
+  Predicate: IS_DOING
+  Object: 串手链 (ID: 1)
+
+Triplet 59:
+  Subject: 李雪 (ID: 0)
+  Predicate: HAS_A
+  Object: 小金属饰品 (ID: 2)
+
+Triplet 60:
+  Subject: 李雪 (ID: 0)
+  Predicate: IS_DOING
+  Object: 写一篇关于旅行的文章 (ID: 1)
+
+Triplet 61:
+  Subject: 李雪 (ID: 0)
+  Predicate: FEELS
+  Object: 困惑 (ID: 1)
+
+Triplet 62:
+  Subject: 李雪 (ID: 0)
+  Predicate: FEELS
+  Object: 旅行中那种自由自在的感觉 (ID: 1)
+
+Triplet 63:
+  Subject: 李雪 (ID: 0)
+  Predicate: IS_DOING
+  Object: 写文章 (ID: 1)
+
+Triplet 64:
+  Subject: 李雪 (ID: 0)
+  Predicate: FEELS
+  Object: 自由自在的感觉 (ID: 2)
+
+Triplet 65:
+  Subject: 李雪 (ID: 0)
+  Predicate: IS_DOING
+  Object: 独自一人走在海边的经历 (ID: 3)
+
+Triplet 66:
+  Subject: 李雪 (ID: 0)
+  Predicate: IS_DOING
+  Object: 探险 (ID: 1)
+
+Triplet 67:
+  Subject: 李雪 (ID: 0)
+  Predicate: FEELS
+  Object: 想去冰岛看极光 (ID: 1)
+
+Triplet 68:
+  Subject: 李雪 (ID: 0)
+  Predicate: FEELS
+  Object: Coldplay的演唱会 (ID: 1)
+
+Triplet 69:
+  Subject: 李雪 (ID: 0)
+  Predicate: MENTIONS
+  Object: The Lumineers的歌 (ID: 1)
+
+Triplet 70:
+  Subject: 李雪 (ID: 0)
+  Predicate: LIKES
+  Object: Imagine Dragons的《Believer》 (ID: 1)
+
+Triplet 71:
+  Subject: 李雪 (ID: 0)
+  Predicate: IS_DOING
+  Object: 看新上映的科幻片《星际穿越者》 (ID: 1)
+
+Triplet 72:
+  Subject: 李雪 (ID: 0)
+  Predicate: FEELS
+  Object: 无限的想象力和对未来的探索 (ID: 1)
+
+Triplet 73:
+  Subject: 李雪 (ID: 0)
+  Predicate: Mentions
+  Object: 电影《时间旅行者的妻子》 (ID: 1)
+
+Triplet 74:
+  Subject: 李雪 (ID: 0)
+  Predicate: FEELS
+  Object: 跨越时间的爱情 (ID: 1)
+
+Triplet 75:
+  Subject: 李雪 (ID: 0)
+  Predicate: LOCATED_IN
+  Object: 小众的海滩 (ID: 1)
+
+Triplet 76:
+  Subject: 那个海滩 (ID: 0)
+  Predicate: HAS_ATTRIBUTE
+  Object: 粉红色的沙子 (ID: 1)
+
+Triplet 77:
+  Subject: 李雪 (ID: 0)
+  Predicate: IS_DOING
+  Object: 捡贝壳 (ID: 1)
+
+Triplet 78:
+  Subject: 李雪 (ID: 0)
+  Predicate: HAS_ATTRIBUTE
+  Object: 打算做成手链 (ID: 2)
+
+Triplet 79:
+  Subject: 李雪 (ID: 0)
+  Predicate: IS_DOING
+  Object: 串手链 (ID: 1)
+
+Triplet 80:
+  Subject: 李雪 (ID: 0)
+  Predicate: HAS_ATTRIBUTE
+  Object: 小金属饰品 (ID: 2)
+
+Triplet 81:
+  Subject: 李雪 (ID: 0)
+  Predicate: IS_DOING
+  Object: 写文章 (ID: 1)
+
+Triplet 82:
+  Subject: 李雪 (ID: 0)
+  Predicate: FEELS
+  Object: 困惑 (ID: 1)
+
+Triplet 83:
+  Subject: 李雪 (ID: 0)
+  Predicate: FEELS
+  Object: 旅行中那种自由自在的感觉 (ID: 1)
+
+Triplet 84:
+  Subject: 李雪 (ID: 0)
+  Predicate: IS_DOING
+  Object: 写文章 (ID: 1)
+
+Triplet 85:
+  Subject: 李雪 (ID: 0)
+  Predicate: FEELS
+  Object: 自由自在的感觉 (ID: 2)
+
+Triplet 86:
+  Subject: 李雪 (ID: 0)
+  Predicate: IS_DOING
+  Object: 独自一人走在海边的经历 (ID: 3)
+
+Triplet 87:
+  Subject: 李雪 (ID: 0)
+  Predicate: FEELS
+  Object: 宁静 (ID: 1)
+
+Triplet 88:
+  Subject: 李雪 (ID: 0)
+  Predicate: FEELS
+  Object: 想去一个没有去过的地方探险 (ID: 1)
+
+Triplet 89:
+  Subject: 李雪 (ID: 0)
+  Predicate: FEELS
+  Object: 想去冰岛看极光 (ID: 1)
+
+Triplet 90:
+  Subject: 李雪 (ID: 0)
+  Predicate: FEELS
+  Object: 无限的想象力和对未来的探索 (ID: 1)
+
+Triplet 91:
+  Subject: 李雪 (ID: 0)
+  Predicate: IS_DOING
+  Object: 看科幻片 (ID: 1)
+  Value: 《星际穿越者》
+
+Triplet 92:
+  Subject: 李雪 (ID: 0)
+  Predicate: FEELS
+  Object: 《星际穿越者》 (ID: 1)
+  Value: 听说特效做得很棒
+
+Triplet 93:
+  Subject: 李雪 (ID: 0)
+  Predicate: FEELS
+  Object: Coldplay的演唱会 (ID: 1)
+
+Triplet 94:
+  Subject: 李雪 (ID: 0)
+  Predicate: FEELS
+  Object: 沉浸 (ID: 1)
+
+Triplet 95:
+  Subject: 李雪 (ID: 0)
+  Predicate: FEELS
+  Object: 那种感觉无法用言语表达，只能自己体验 (ID: 1)
+
+Triplet 96:
+  Subject: 李雪 (ID: 0)
+  Predicate: IS_DOING
+  Object: 写了一段关于海边散步的描写 (ID: 1)
+
+Triplet 97:
+  Subject: 李雪 (ID: 0)
+  Predicate: FEELS
+  Object: 这段文字活了起来 (ID: 1)
+
+Triplet 98:
+  Subject: 李雪 (ID: 0)
+  Predicate: FEELS
+  Object: 海风轻拂过脸庞，带着咸咸的海水味和远处渔火的微光，我仿佛能听到星星在耳边低语。 (ID: 1)
+
+
+=== EXTRACTED ENTITIES (181 total) ===
+
+Entity 1:
+  ID: 0
+  Name: 张曼婷
+  Type: 人物
+  Description: 个体人名
+
+Entity 2:
+  ID: 1
+  Name: 水彩画
+  Type: 艺术形式
+  Description: 用水彩颜料创作的绘画
+
+Entity 3:
+  ID: 0
+  Name: 张曼婷
+  Type: 人物
+  Description: 个体人名
+
+Entity 4:
+  ID: 1
+  Name: 画了一些花朵
+  Type: 行为
+  Description: 绘画活动
+
+Entity 5:
+  ID: 0
+  Name: 张曼婷
+  Type: 人物
+  Description: 个体人名
+
+Entity 6:
+  ID: 1
+  Name: 水彩画的色彩搭配还有提升的空间
+  Type: 观点
+  Description: 对水彩画色彩搭配的看法
+
+Entity 7:
+  ID: 0
+  Name: 张曼婷
+  Type: 人物
+  Description: 个体人名
+
+Entity 8:
+  ID: 1
+  Name: 玫瑰
+  Type: 花卉
+  Description: 玫瑰花
+
+Entity 9:
+  ID: 2
+  Name: 百合
+  Type: 花卉
+  Description: 百合花
+
+Entity 10:
+  ID: 0
+  Name: 张曼婷
+  Type: 人物
+  Description: 个体人名
+
+Entity 11:
+  ID: 1
+  Name: 练习肖邦的夜曲
+  Type: 活动
+  Description: 演奏肖邦的夜曲
+
+Entity 12:
+  ID: 0
+  Name: 张曼婷
+  Type: 人物
+  Description: 个体人名
+
+Entity 13:
+  ID: 1
+  Name: 右手的旋律和左手的和弦很难协调
+  Type: 感受
+  Description: 张曼婷在练习钢琴时遇到的困难
+
+Entity 14:
+  ID: 0
+  Name: 张曼婷
+  Type: 人物
+  Description: 个体人名
+
+Entity 15:
+  ID: 1
+  Name: 读《小王子》
+  Type: 活动
+  Description: 阅读《小王子》这本书
+
+Entity 16:
+  ID: 0
+  Name: 张曼婷
+  Type: 人物
+  Description: 个体人名
+
+Entity 17:
+  ID: 1
+  Name: 狐狸说的那句话
+  Type: 引用
+  Description: 来自《小王子》的一句话
+
+Entity 18:
+  ID: 0
+  Name: 张曼婷
+  Type: 人物
+  Description: 个体人名
+
+Entity 19:
+  ID: 1
+  Name: 这句话
+  Type: 概念
+  Description: 引述的内容
+
+Entity 20:
+  ID: 0
+  Name: 张曼婷
+  Type: 人物
+  Description: 个体人名
+
+Entity 21:
+  ID: 1
+  Name: 更加用心去观察
+  Type: 态度
+  Description: 更加专注地观察
+
+Entity 22:
+  ID: 0
+  Name: 张曼婷
+  Type: 人物
+  Description: 个体人名
+
+Entity 23:
+  ID: 1
+  Name: 放松
+  Type: 情感状态
+  Description: 心理上的轻松愉悦状态
+
+Entity 24:
+  ID: 0
+  Name: 张曼婷
+  Type: 人物
+  Description: 个体人名
+
+Entity 25:
+  ID: 1
+  Name: 静下心来思考
+  Type: 行为
+  Description: 通过品茶使自己平静下来进行思考的行为
+
+Entity 26:
+  ID: 0
+  Name: 张曼婷
+  Type: 人物
+  Description: 个体人名
+
+Entity 27:
+  ID: 1
+  Name: 龙井茶
+  Type: 饮品
+  Description: 一种茶叶
+
+Entity 28:
+  ID: 0
+  Name: 张曼婷
+  Type: 人物
+  Description: 个体人名
+
+Entity 29:
+  ID: 1
+  Name: 去公园
+  Type: 活动
+  Description: 一种休闲活动
+
+Entity 30:
+  ID: 0
+  Name: 张曼婷
+  Type: 人物
+  Description: 个体人名
+
+Entity 31:
+  ID: 1
+  Name: 不擅长用文字表达
+  Type: 技能或能力
+  Description: 缺乏文字表达的能力
+
+Entity 32:
+  ID: 0
+  Name: 张曼婷
+  Type: 人物
+  Description: 个体人名
+
+Entity 33:
+  ID: 1
+  Name: 准备睡觉
+  Type: 行为
+  Description: 即将进行的睡眠行为
+
+Entity 34:
+  ID: 0
+  Name: 王峰
+  Type: 人物
+  Description: 个体人名
+
+Entity 35:
+  ID: 1
+  Name: 跑步
+  Type: 活动
+  Description: 一种体育锻炼
+
+Entity 36:
+  ID: 2
+  Name: 穿着古装的团队
+  Type: 群体
+  Description: 一群穿着古代服装的人
+
+Entity 37:
+  ID: 0
+  Name: 王峰
+  Type: 人物
+  Description: 个体人名
+
+Entity 38:
+  ID: 1
+  Name: 对历史剧感兴趣
+  Type: 兴趣爱好
+  Description: 对历史剧感兴趣的个人态度
+
+Entity 39:
+  ID: 0
+  Name: 王峰
+  Type: 人物
+  Description: 个体人名
+
+Entity 40:
+  ID: 1
+  Name: 读《二战全史》
+  Type: 行为
+  Description: 正在阅读《二战全史》这本书
+
+Entity 41:
+  ID: 0
+  Name: 王峰
+  Type: 人物
+  Description: 个体人名
+
+Entity 42:
+  ID: 1
+  Name: 访问抗战纪念馆
+  Type: 活动
+  Description: 计划中的参观活动
+
+Entity 43:
+  ID: 0
+  Name: 王峰
+  Type: 人物
+  Description: 个体人名
+
+Entity 44:
+  ID: 1
+  Name: 打篮球
+  Type: 运动
+  Description: 一种体育活动
+
+Entity 45:
+  ID: 0
+  Name: 王峰
+  Type: 人物
+  Description: 个体人名
+
+Entity 46:
+  ID: 1
+  Name: 小前锋
+  Type: 篮球位置
+  Description: 篮球比赛中的一种位置
+
+Entity 47:
+  ID: 0
+  Name: 王峰
+  Type: 人物
+  Description: 个体人名
+
+Entity 48:
+  ID: 1
+  Name: 快攻
+  Type: 篮球术语
+  Description: 篮球战术之一，强调速度和效率
+
+Entity 49:
+  ID: 2
+  Name: 远投
+  Type: 篮球术语
+  Description: 篮球战术之一，强调远程投篮
+
+Entity 50:
+  ID: 0
+  Name: 王峰
+  Type: 人物
+  Description: 个体人名
+
+Entity 51:
+  ID: 1
+  Name: 新的突破技巧
+  Type: 技能
+  Description: 篮球比赛中使用的创新技术
+
+Entity 52:
+  ID: 0
+  Name: 王峰
+  Type: 人物
+  Description: 个体人名
+
+Entity 53:
+  ID: 1
+  Name: 攀岩
+  Type: 运动
+  Description: 一种攀登岩石的运动
+
+Entity 54:
+  ID: 0
+  Name: 王峰
+  Type: 人物
+  Description: 个体人名
+
+Entity 55:
+  ID: 1
+  Name: 核心力量训练
+  Type: 健身活动
+  Description: 增强身体核心肌群的力量训练
+
+Entity 56:
+  ID: 0
+  Name: 王峰
+  Type: 人物
+  Description: 个体人名
+
+Entity 57:
+  ID: 1
+  Name: 特定的体能训练
+  Type: 活动
+  Description: 一系列增强体质的锻炼
+
+Entity 58:
+  ID: 0
+  Name: 王峰
+  Type: 人物
+  Description: 个体人名
+
+Entity 59:
+  ID: 1
+  Name: 水
+  Type: 物资
+  Description: 用于补充水分的液体
+
+Entity 60:
+  ID: 2
+  Name: 食物
+  Type: 物资
+  Description: 用于补充能量的食物
+
+Entity 61:
+  ID: 0
+  Name: 王峰
+  Type: 人物
+  Description: 个体人名
+
+Entity 62:
+  ID: 1
+  Name: 急救包
+  Type: 物品
+  Description: 用于紧急医疗救助的包
+
+Entity 63:
+  ID: 2
+  Name: 多功能刀具
+  Type: 物品
+  Description: 具有多种功能的刀具
+
+Entity 64:
+  ID: 0
+  Name: 王峰
+  Type: 人物
+  Description: 个体人名
+
+Entity 65:
+  ID: 1
+  Name: 拍照
+  Type: 行为
+  Description: 使用相机或手机等设备记录照片的行为
+
+Entity 66:
+  ID: 0
+  Name: 王峰
+  Type: 人物
+  Description: 个体人名
+
+Entity 67:
+  ID: 1
+  Name: 独自前行
+  Type: 行为
+  Description: 一个人行走的方式
+
+Entity 68:
+  ID: 0
+  Name: 王峰
+  Type: 人物
+  Description: 个体人名
+
+Entity 69:
+  ID: 1
+  Name: 徒步
+  Type: 活动
+  Description: 一种户外运动
+
+Entity 70:
+  ID: 2
+  Name: 和朋友一起
+  Type: 社交活动
+  Description: 与朋友共同参与的活动
+
+Entity 71:
+  ID: 0
+  Name: 王峰
+  Type: 人物
+  Description: 个体人名
+
+Entity 72:
+  ID: 1
+  Name: 遇到过一次迷路的小狗
+  Type: 事件
+  Description: 描述王峰遇到的一次事件
+
+Entity 73:
+  ID: 0
+  Name: 王峰
+  Type: 人物
+  Description: 个体人名
+
+Entity 74:
+  ID: 1
+  Name: 写一本关于战术演变的书
+  Type: 活动
+  Description: 写作一本关于战术演变的书籍
+
+Entity 75:
+  ID: 0
+  Name: 王峰
+  Type: 人物
+  Description: 个体人名
+
+Entity 76:
+  ID: 1
+  Name: 研究越战期间的丛林战术
+  Type: 活动
+  Description: 对越南战争期间使用的丛林战术进行研究
+
+Entity 77:
+  ID: 0
+  Name: 王峰
+  Type: 人物
+  Description: 个体人名
+
+Entity 78:
+  ID: 1
+  Name: 20分
+  Type: 得分
+  Description: 篮球比赛中得分
+
+Entity 79:
+  ID: 2
+  Name: 助攻
+  Type: 得分方式
+  Description: 通过传球帮助队友得分
+
+Entity 80:
+  ID: 3
+  Name: 抢断
+  Type: 得分方式
+  Description: 从对方手中抢夺球权
+
+Entity 81:
+  ID: 0
+  Name: 王峰团队
+  Type: 团体
+  Description: 指代王峰所在的一个团队或小组
+
+Entity 82:
+  ID: 1
+  Name: 团队配合越来越默契
+  Type: 状态描述
+  Description: 指团队成员之间的协作越来越熟练和协调
+
+Entity 83:
+  ID: 0
+  Name: 王峰
+  Type: 人物
+  Description: 个体人名
+
+Entity 84:
+  ID: 1
+  Name: 练习篮球
+  Type: 活动
+  Description: 每周固定的篮球练习
+
+Entity 85:
+  ID: 0
+  Name: 王峰
+  Type: 人物
+  Description: 个体人名
+
+Entity 86:
+  ID: 1
+  Name: 徒步
+  Type: 活动
+  Description: 步行旅行或锻炼
+
+Entity 87:
+  ID: 0
+  Name: 王峰
+  Type: 人物
+  Description: 个体人名
+
+Entity 88:
+  ID: 1
+  Name: 探索新路线
+  Type: 活动
+  Description: 徒步旅行中的一种行为
+
+Entity 89:
+  ID: 0
+  Name: 那条路线
+  Type: 地点
+  Description: 一条徒步路线
+
+Entity 90:
+  ID: 1
+  Name: 风景特别好
+  Type: 描述
+  Description: 特别美丽的景色
+
+Entity 91:
+  ID: 0
+  Name: 路线
+  Type: 地点
+  Description: 徒步路线
+
+Entity 92:
+  ID: 1
+  Name: 小瀑布
+  Type: 自然景观
+  Description: 沿路线的小瀑布
+
+Entity 93:
+  ID: 0
+  Name: 那条路线
+  Type: 地点
+  Description: 一条徒步路线
+
+Entity 94:
+  ID: 1
+  Name: 观景台
+  Type: 设施
+  Description: 可以俯瞰整个山谷的地方
+
+Entity 95:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 96:
+  ID: 1
+  Name: 电影《时间旅行者的妻子》
+  Type: 影视作品
+  Description: 一部讲述爱情与时间错位的电影
+
+Entity 97:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 98:
+  ID: 1
+  Name: 跨越时间的爱情
+  Type: 概念
+  Description: 一种情感关系，跨越时间的存在
+
+Entity 99:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 100:
+  ID: 1
+  Name: 去了一个小众的海滩
+  Type: 活动
+  Description: 去海滩游玩的行为
+
+Entity 101:
+  ID: 0
+  Name: 沙子
+  Type: 地理特征
+  Description: 沙滩上的细粒物质
+
+Entity 102:
+  ID: 1
+  Name: 粉红色
+  Type: 颜色
+  Description: 一种淡色调的颜色
+
+Entity 103:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 104:
+  ID: 1
+  Name: 贝壳
+  Type: 物品
+  Description: 海洋生物的外壳
+
+Entity 105:
+  ID: 2
+  Name: 手链
+  Type: 工艺品
+  Description: 佩戴于手腕的装饰品
+
+Entity 106:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 107:
+  ID: 1
+  Name: 串手链
+  Type: 活动
+  Description: 将物品串在一起的行为
+
+Entity 108:
+  ID: 2
+  Name: 小金属饰品
+  Type: 装饰品
+  Description: 用于装饰的手链配件
+
+Entity 109:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 110:
+  ID: 1
+  Name: 写一篇关于旅行的文章
+  Type: 活动
+  Description: 正在撰写一篇文章，主题为旅行
+
+Entity 111:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 112:
+  ID: 1
+  Name: 困惑
+  Type: 情感状态
+  Description: 感到迷茫和不知所措
+
+Entity 113:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 114:
+  ID: 1
+  Name: 旅行中那种自由自在的感觉
+  Type: 感觉
+  Description: 旅行中的轻松和无拘无束的感受
+
+Entity 115:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 116:
+  ID: 1
+  Name: 写文章
+  Type: 活动
+  Description: 创作文字作品
+
+Entity 117:
+  ID: 2
+  Name: 自由自在的感觉
+  Type: 感觉
+  Description: 轻松自在的心情
+
+Entity 118:
+  ID: 3
+  Name: 独自一人走在海边的经历
+  Type: 经历
+  Description: 个人的海边散步经历
+
+Entity 119:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 120:
+  ID: 1
+  Name: 探险
+  Type: 活动
+  Description: 前往未知地点进行探索的行为
+
+Entity 121:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 122:
+  ID: 1
+  Name: 想去冰岛看极光
+  Type: 愿望
+  Description: 想去冰岛观看极光的愿望
+
+Entity 123:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 124:
+  ID: 1
+  Name: Coldplay的演唱会
+  Type: 活动
+  Description: 由Coldplay举办的演唱会
+
+Entity 125:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 126:
+  ID: 1
+  Name: The Lumineers的歌
+  Type: 音乐作品
+  Description: The Lumineers乐队的歌曲
+
+Entity 127:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 128:
+  ID: 1
+  Name: Imagine Dragons的《Believer》
+  Type: 音乐作品
+  Description: Imagine Dragons演唱的一首歌曲
+
+Entity 129:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 130:
+  ID: 1
+  Name: 看新上映的科幻片《星际穿越者》
+  Type: 活动
+  Description: 观看一部新上映的科幻电影
+
+Entity 131:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 132:
+  ID: 1
+  Name: 无限的想象力和对未来的探索
+  Type: 概念
+  Description: 科幻电影中的元素
+
+Entity 133:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 134:
+  ID: 1
+  Name: 电影《时间旅行者的妻子》
+  Type: 影视作品
+  Description: 一部讲述爱情和时间错位的电影
+
+Entity 135:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 136:
+  ID: 1
+  Name: 跨越时间的爱情
+  Type: 情感
+  Description: 指不被时间所限制的爱情
+
+Entity 137:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 138:
+  ID: 1
+  Name: 小众的海滩
+  Type: 地点
+  Description: 一个游客较少的海滩
+
+Entity 139:
+  ID: 0
+  Name: 那个海滩
+  Type: 地点
+  Description: 用户提到的一个小众海滩
+
+Entity 140:
+  ID: 1
+  Name: 粉红色的沙子
+  Type: 属性
+  Description: 海滩的一种特征
+
+Entity 141:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 142:
+  ID: 1
+  Name: 捡贝壳
+  Type: 活动
+  Description: 收集海洋生物的行为
+
+Entity 143:
+  ID: 2
+  Name: 打算做成手链
+  Type: 计划
+  Description: 将捡来的贝壳制作成装饰品的计划
+
+Entity 144:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 145:
+  ID: 1
+  Name: 串手链
+  Type: 活动
+  Description: 将物品穿在一起制作手链的行为
+
+Entity 146:
+  ID: 2
+  Name: 小金属饰品
+  Type: 装饰品
+  Description: 用于装饰的手链配件
+
+Entity 147:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 148:
+  ID: 1
+  Name: 写文章
+  Type: 活动
+  Description: 写作行为
+
+Entity 149:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 150:
+  ID: 1
+  Name: 困惑
+  Type: 情感状态
+  Description: 不知如何将感受转化为文字的状态
+
+Entity 151:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 152:
+  ID: 1
+  Name: 旅行中那种自由自在的感觉
+  Type: 感觉
+  Description: 旅行时体验到的一种轻松自在的心情
+
+Entity 153:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 154:
+  ID: 1
+  Name: 写文章
+  Type: 活动
+  Description: 撰写文章的行为
+
+Entity 155:
+  ID: 2
+  Name: 自由自在的感觉
+  Type: 情感
+  Description: 一种轻松自在的情绪状态
+
+Entity 156:
+  ID: 3
+  Name: 独自一人走在海边的经历
+  Type: 经历
+  Description: 一个人在海边散步的经历
+
+Entity 157:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 158:
+  ID: 1
+  Name: 宁静
+  Type: 情感
+  Description: 一种内心的平静状态
+
+Entity 159:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 160:
+  ID: 1
+  Name: 想去一个没有去过的地方探险
+  Type: 活动
+  Description: 探索未知地点的行为
+
+Entity 161:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 162:
+  ID: 1
+  Name: 想去冰岛看极光
+  Type: 愿望
+  Description: 李雪的愿望是去冰岛看极光
+
+Entity 163:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 164:
+  ID: 1
+  Name: 无限的想象力和对未来的探索
+  Type: 概念
+  Description: 科幻电影的特点
+
+Entity 165:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 166:
+  ID: 1
+  Name: 看科幻片
+  Type: 活动
+  Description: 观看科幻电影的行为
+
+Entity 167:
+  ID: 2
+  Name: 《星际穿越者》
+  Type: 影视作品
+  Description: 一部新上映的科幻电影
+
+Entity 168:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 对话中的用户
+
+Entity 169:
+  ID: 1
+  Name: 《星际穿越者》
+  Type: 影视作品
+  Description: 一部科幻电影
+
+Entity 170:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 171:
+  ID: 1
+  Name: Coldplay的演唱会
+  Type: 事件
+  Description: 一次音乐会活动
+
+Entity 172:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 173:
+  ID: 1
+  Name: 沉浸
+  Type: 状态
+  Description: 完全融入某种情境或体验
+
+Entity 174:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 175:
+  ID: 1
+  Name: 那种感觉无法用言语表达，只能自己体验
+  Type: 观点
+  Description: 一种主观感受，只能亲身体验
+
+Entity 176:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 177:
+  ID: 1
+  Name: 写了一段关于海边散步的描写
+  Type: 行为
+  Description: 写作活动的一部分
+
+Entity 178:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 179:
+  ID: 1
+  Name: 这段文字活了起来
+  Type: 描述
+  Description: 文本变得生动
+
+Entity 180:
+  ID: 0
+  Name: 李雪
+  Type: 人物
+  Description: 个体人名
+
+Entity 181:
+  ID: 1
+  Name: 海风轻拂过脸庞，带着咸咸的海水味和远处渔火的微光，我仿佛能听到星星在耳边低语。
+  Type: 描述
+  Description: 一段关于海边散步的文字描述
+

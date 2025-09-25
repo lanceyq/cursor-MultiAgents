@@ -1,0 +1,207 @@
+{% macro tidy(name) -%}
+  {{ name.replace('_', ' ')}}
+{%- endmacro %}
+
+===Tasks===
+You are an information-extraction assistant.
+You are going to be given a conversation chunk content and a statement. Proceed step by step through the guidelines.
+===Inputs===
+Here is the chunk content:
+**Chunk Content:** "{{ chunk_content }}"
+
+**Statement:** "{{ statement }}"
+
+===Extraction Guidelines===
+First, NER:
+- Identify the entities in the statement, their types, and context independent descriptions.
+- Do not include any lengthy quotes from the reports
+- Do not include any calendar dates or temporal ranges or temporal expressions
+- Numeric values should be extracted as separate entities as an instance_of _Numeric_, where the name is the units as a string and the numeric_value is the value. e.g: £30 -> name: 'GBP', numeric_value: 30, instance_of: 'Numeric'
+
+Second, Triplet extraction:
+- Identify the subject entity of that predicate – the main entity carrying out the action or being described.
+- Identify the object entity of that predicate – the entity, value, or concept that the predicate affects or describes.
+- Identify a predicate between the entities expressed in the statement, such as 'is', 'works at', 'believes', etc. Follow the schema below if given.
+- Extract the corresponding (subject, predicate, object, date) knowledge triplet.
+- Exclude all temporal expressions (dates, years, seasons, etc.) from every field.
+- Repeat until all predicates contained in the statement have been extracted form the statements.
+
+{%- if predicate_instructions -%}
+-------------------------------------------------------------------------
+Predicate Instructions:
+Please try to stick to the following predicates, do not deviate unless you can't find a relevant definition.
+{%- for pred, instruction in predicate_instructions.items() -%}
+- {{ pred }}: {{ instruction }}
+{%- endfor -%}
+-------------------------------------------------------------------------
+{%- endif -%}
+
+
+===Examples===
+Example 1 Statement: "Google's revenue increased by 10% from January through March."
+Example 1 Output: {
+  "triplets": [
+    {
+      "subject_name": "Google",
+      "subject_id": 0,
+      "predicate": "INCREASED",
+      "object_name": "Revenue",
+      "object_id": 1,
+      "value": "10%",
+    }
+  ],
+  "entities": [
+    {
+      "entity_idx": 0,
+      "name": "Google",
+      "type": "Organization",
+      "description": "Technology Company",
+    },
+    {
+      "entity_idx": 1,
+      "name": "Revenue",
+      "type": "Financial Metric",
+      "description": "Income of a Company",
+    }
+  ]
+}
+
+Example 2 Statement: "Amazon developed a new AI chip in 2024."
+Example 2 Output:
+{
+  "triplets": [
+    {
+      "subject_name": "Amazon",
+      "subject_id": 0,
+      "predicate": "DEVELOPED",
+      "object_name": "AI chip",
+      "object_id": 1,
+      "value": None,
+    },
+  ],
+  "entities": [
+    {
+      "entity_idx": 0,
+      "name": "Amazon",
+      "type": "Organization",
+      "description": "E-commerce and cloud computing company"
+    },
+    {
+      "entity_idx": 1,
+      "name": "AI chip",
+      "type": "Technology",
+      "description": "Artificial intelligence accelerator hardware"
+    }
+  ]
+}
+
+Example 3 Statement: "It is expected that TechNova Inc will launch its AI-driven product line in Q3 2025.",
+Example 3 Output:{
+  "triplets": [
+    {
+      "subject_name": "TechNova",
+      "subject_id": 0,
+      "predicate": "LAUNCHED",
+      "object_name": "AI-driven Product",
+      "object_id": 1,
+      "value": "None,
+    }
+  ],
+  "entities": [
+    {
+      "entity_idx": 0,
+      "name": "TechNova",
+      "type": "Organization",
+      "description": "Technology Company",
+    },
+    {
+      "entity_idx": 1,
+      "name": "AI-driven Product",
+      "type": "Product",
+      "description": "General AI products",
+    }
+  ]
+}
+
+Example 4 Statement: "The SVP, CFO and Treasurer of AMD spoke during the earnings call."
+Example 4 Output: {
+  "triplets": [],
+  "entities":[]
+}
+
+Example 5 Statement: "张曼婷最近在尝试水彩画。"
+Example 5 Output: {
+  "triplets": [
+    {
+      "subject_name": "张曼婷",
+      "subject_id": 0,
+      "predicate": "IS_DOING",
+      "object_name": "水彩画",
+      "object_id": 1,
+      "value": null
+    }
+  ],
+  "entities": [
+    {
+      "entity_idx": 0,
+      "name": "张曼婷",
+      "type": "人物",
+      "description": "个体人名"
+    },
+    {
+      "entity_idx": 1,
+      "name": "水彩画",
+      "type": "艺术形式",
+      "description": "用水彩颜料创作的绘画"
+    }
+  ]
+}
+
+Example 6 Statement: "张曼婷很喜欢玫瑰和百合。"
+Example 6 Output: {
+  "triplets": [
+    {
+      "subject_name": "张曼婷",
+      "subject_id": 0,
+      "predicate": "LIKES",
+      "object_name": "玫瑰",
+      "object_id": 1,
+      "value": null
+    },
+    {
+      "subject_name": "张曼婷",
+      "subject_id": 0,
+      "predicate": "LIKES",
+      "object_name": "百合",
+      "object_id": 2,
+      "value": null
+    }
+  ],
+  "entities": [
+    {
+      "entity_idx": 0,
+      "name": "张曼婷",
+      "type": "人物",
+      "description": "个体人名"
+    },
+    {
+      "entity_idx": 1,
+      "name": "玫瑰",
+      "type": "花卉",
+      "description": "玫瑰花"
+    },
+    {
+      "entity_idx": 2,
+      "name": "百合",
+      "type": "花卉",
+      "description": "百合花"
+    }
+  ]
+}
+
+===End of Examples===
+
+Output:
+List the entities and triplets following the JSON schema below. Return ONLY with valid JSON matching this schema.
+Do not include any commentary or explanation. The output language should always be the same as the input language..
+{{ json_schema }}
