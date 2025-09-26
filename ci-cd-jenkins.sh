@@ -120,50 +120,7 @@ if [ ! -d "$VENV_DIR" ]; then
     fi
 else
     log_info "虚拟环境已存在"
-    # 检查虚拟环境是否完整（激活脚本是否存在）
-    if [ -f "$VENV_DIR/bin/activate" ] || [ -f "$VENV_DIR/Scripts/activate" ]; then
-        VENV_CREATED=true
-        log_success "虚拟环境完整性检查通过"
-    else
-        log_warning "虚拟环境不完整，重新创建..."
-        rm -rf "$VENV_DIR"
-        
-        # 重新创建虚拟环境
-        if $PYTHON_CMD -m venv "$VENV_DIR" 2>/dev/null; then
-            log_success "虚拟环境重新创建成功"
-            VENV_CREATED=true
-        else
-            log_warning "标准venv重新创建失败，尝试备用方案..."
-            
-            # 备用方案1: 尝试使用virtualenv
-            if command -v virtualenv &> /dev/null; then
-                log_info "使用virtualenv重新创建虚拟环境..."
-                if virtualenv "$VENV_DIR" 2>/dev/null; then
-                    log_success "使用virtualenv重新创建虚拟环境成功"
-                    VENV_CREATED=true
-                fi
-            fi
-            
-            # 备用方案2: 如果virtualenv也不可用，尝试安装它
-            if [ "$VENV_CREATED" = false ]; then
-                log_info "尝试安装virtualenv..."
-                if $PYTHON_CMD -m pip install virtualenv --user --quiet 2>/dev/null; then
-                    if $PYTHON_CMD -m virtualenv "$VENV_DIR" 2>/dev/null; then
-                        log_success "安装virtualenv后重新创建虚拟环境成功"
-                        VENV_CREATED=true
-                    fi
-                fi
-            fi
-            
-            # 如果所有虚拟环境方案都失败，继续使用系统Python
-            if [ "$VENV_CREATED" = false ]; then
-                log_warning "无法重新创建虚拟环境，将使用系统Python环境"
-                log_warning "建议在Jenkins节点上安装: apt install python3-venv 或 yum install python3-venv"
-                # 创建一个假的venv目录结构以保持脚本兼容性
-                mkdir -p "$VENV_DIR"
-            fi
-        fi
-    fi
+    VENV_CREATED=true
 fi
 
 # 激活虚拟环境
@@ -194,25 +151,19 @@ if ! command -v poetry &> /dev/null; then
     
     # 如果使用虚拟环境，优先使用pip安装
     if [ "$VENV_CREATED" = true ]; then
-        log_info "在虚拟环境中安装Poetry..."
         if $PIP_CMD install poetry --quiet 2>/dev/null; then
             log_success "使用pip安装Poetry成功"
         else
-            log_warning "pip安装失败，尝试官方安装脚本..."
-            # 增加网络连接检查
-            if curl -s --connect-timeout 10 https://install.python-poetry.org > /dev/null 2>&1; then
-                if curl -sSL https://install.python-poetry.org | $PYTHON_CMD - 2>/dev/null; then
-                    export PATH="$HOME/.local/bin:$PATH"
-                    if command -v poetry &> /dev/null; then
-                        log_success "Poetry官方安装成功"
-                    else
-                        log_warning "Poetry官方安装失败，将使用pip进行依赖管理"
-                    fi
+            log_info "pip安装失败，使用官方安装脚本..."
+            if curl -sSL https://install.python-poetry.org | $PYTHON_CMD - 2>/dev/null; then
+                export PATH="$HOME/.local/bin:$PATH"
+                if command -v poetry &> /dev/null; then
+                    log_success "Poetry官方安装成功"
                 else
-                    log_warning "Poetry官方安装脚本执行失败，将使用pip进行依赖管理"
+                    log_warning "Poetry安装失败，将使用pip进行依赖管理"
                 fi
             else
-                log_warning "无法连接到Poetry官方安装服务器，将使用pip进行依赖管理"
+                log_warning "Poetry安装失败，将使用pip进行依赖管理"
             fi
         fi
     else
@@ -221,23 +172,15 @@ if ! command -v poetry &> /dev/null; then
         if $PIP_CMD install --user poetry --quiet 2>/dev/null; then
             export PATH="$HOME/.local/bin:$PATH"
             log_success "使用pip用户级安装Poetry成功"
-        else
-            log_warning "pip用户级安装失败，尝试官方安装脚本..."
-            # 增加网络连接检查
-            if curl -s --connect-timeout 10 https://install.python-poetry.org > /dev/null 2>&1; then
-                if curl -sSL https://install.python-poetry.org | $PYTHON_CMD - 2>/dev/null; then
-                    export PATH="$HOME/.local/bin:$PATH"
-                    if command -v poetry &> /dev/null; then
-                        log_success "Poetry官方安装成功"
-                    else
-                        log_warning "Poetry官方安装失败，将使用pip进行依赖管理"
-                    fi
-                else
-                    log_warning "Poetry官方安装脚本执行失败，将使用pip进行依赖管理"
-                fi
+        elif curl -sSL https://install.python-poetry.org | $PYTHON_CMD - 2>/dev/null; then
+            export PATH="$HOME/.local/bin:$PATH"
+            if command -v poetry &> /dev/null; then
+                log_success "Poetry官方安装成功"
             else
-                log_warning "无法连接到Poetry官方安装服务器，将使用pip进行依赖管理"
+                log_warning "Poetry安装失败，将使用pip进行依赖管理"
             fi
+        else
+            log_warning "Poetry安装失败，将使用pip进行依赖管理"
         fi
     fi
 else
