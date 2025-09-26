@@ -38,8 +38,31 @@ DIST_DIR="$WORKSPACE_DIR/dist"
 
 # 清理函数
 cleanup() {
-    log_info "清理临时文件..."
-    # 可以在这里添加清理逻辑
+    log_info "清理临时文件和虚拟环境..."
+    
+    # 清理虚拟环境
+    if [ -d ".venv" ]; then
+        log_info "删除虚拟环境目录..."
+        rm -rf .venv
+    fi
+    
+    # 清理构建目录
+    if [ -d "build" ]; then
+        log_info "清理构建目录..."
+        rm -rf build
+    fi
+    
+    # 清理分发目录
+    if [ -d "dist" ]; then
+        log_info "清理分发目录..."
+        rm -rf dist
+    fi
+    
+    # 清理Python缓存
+    find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
+    find . -name "*.pyc" -delete 2>/dev/null || true
+    
+    log_info "清理完成"
 }
 
 # 设置陷阱，确保脚本退出时执行清理
@@ -48,6 +71,34 @@ trap cleanup EXIT
 echo "========================================="
 echo "    memsci项目 Jenkins CI/CD Pipeline"
 echo "========================================="
+
+# Stage 0: 清理现有环境
+log_info "Stage 0: 清理现有环境..."
+
+# 强制清理现有虚拟环境
+if [ -d ".venv" ]; then
+    log_info "发现现有虚拟环境，正在删除..."
+    rm -rf .venv
+    log_success "现有虚拟环境已删除"
+fi
+
+# 清理现有构建产物
+if [ -d "build" ]; then
+    log_info "清理现有构建目录..."
+    rm -rf build
+fi
+
+if [ -d "dist" ]; then
+    log_info "清理现有分发目录..."
+    rm -rf dist
+fi
+
+# 清理Python缓存文件
+log_info "清理Python缓存文件..."
+find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
+find . -name "*.pyc" -delete 2>/dev/null || true
+
+log_success "环境清理完成"
 
 # Stage 1: 验证工作目录
 log_info "Stage 1: 验证Jenkins工作空间..."
@@ -78,49 +129,45 @@ log_info "Python版本: $($PYTHON_CMD --version)"
 
 # 设置虚拟环境
 VENV_DIR=".venv"
-VENV_CREATED=false
 
-if [ ! -d "$VENV_DIR" ]; then
-    log_info "创建虚拟环境..."
+# 强制创建新的虚拟环境
+log_info "创建新的虚拟环境..."
+
+# 尝试使用标准venv模块创建虚拟环境
+if $PYTHON_CMD -m venv "$VENV_DIR" 2>/dev/null; then
+    log_success "虚拟环境创建成功"
+    VENV_CREATED=true
+else
+    log_warning "标准venv创建失败，尝试备用方案..."
     
-    # 尝试使用标准venv模块创建虚拟环境
-    if $PYTHON_CMD -m venv "$VENV_DIR" 2>/dev/null; then
-        log_success "虚拟环境创建成功"
-        VENV_CREATED=true
-    else
-        log_warning "标准venv创建失败，尝试备用方案..."
-        
-        # 备用方案1: 尝试使用virtualenv
-        if command -v virtualenv &> /dev/null; then
-            log_info "使用virtualenv创建虚拟环境..."
-            if virtualenv "$VENV_DIR" 2>/dev/null; then
-                log_success "使用virtualenv创建虚拟环境成功"
+    # 备用方案1: 尝试使用virtualenv
+    if command -v virtualenv &> /dev/null; then
+        log_info "使用virtualenv创建虚拟环境..."
+        if virtualenv "$VENV_DIR" 2>/dev/null; then
+            log_success "使用virtualenv创建虚拟环境成功"
+            VENV_CREATED=true
+        fi
+    fi
+    
+    # 备用方案2: 如果virtualenv也不可用，尝试安装它
+    if [ "$VENV_CREATED" != true ]; then
+        log_info "尝试安装virtualenv..."
+        if $PYTHON_CMD -m pip install virtualenv --user --quiet 2>/dev/null; then
+            if $PYTHON_CMD -m virtualenv "$VENV_DIR" 2>/dev/null; then
+                log_success "安装virtualenv后创建虚拟环境成功"
                 VENV_CREATED=true
             fi
         fi
-        
-        # 备用方案2: 如果virtualenv也不可用，尝试安装它
-        if [ "$VENV_CREATED" = false ]; then
-            log_info "尝试安装virtualenv..."
-            if $PYTHON_CMD -m pip install virtualenv --user --quiet 2>/dev/null; then
-                if $PYTHON_CMD -m virtualenv "$VENV_DIR" 2>/dev/null; then
-                    log_success "安装virtualenv后创建虚拟环境成功"
-                    VENV_CREATED=true
-                fi
-            fi
-        fi
-        
-        # 如果所有虚拟环境方案都失败，继续使用系统Python
-        if [ "$VENV_CREATED" = false ]; then
-            log_warning "无法创建虚拟环境，将使用系统Python环境"
-            log_warning "建议在Jenkins节点上安装: apt install python3-venv 或 yum install python3-venv"
-            # 创建一个假的venv目录结构以保持脚本兼容性
-            mkdir -p "$VENV_DIR"
-        fi
     fi
-else
-    log_info "虚拟环境已存在"
-    VENV_CREATED=true
+    
+    # 如果所有虚拟环境方案都失败，继续使用系统Python
+    if [ "$VENV_CREATED" != true ]; then
+        log_warning "无法创建虚拟环境，将使用系统Python环境"
+        log_warning "建议在Jenkins节点上安装: apt install python3-venv 或 yum install python3-venv"
+        # 创建一个假的venv目录结构以保持脚本兼容性
+        mkdir -p "$VENV_DIR"
+        VENV_CREATED=false
+    fi
 fi
 
 # 激活虚拟环境
