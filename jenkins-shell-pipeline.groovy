@@ -13,8 +13,8 @@ pipeline {
                 script {
                     // 根据操作系统选择执行不同的脚本
                     if (isUnix()) {
-                        // Linux/Unix系统 - 使用bash直接执行，避免权限问题
-                        sh 'bash ci-cd.sh'
+                        // Linux/Unix系统 - 使用专门的Jenkins脚本
+                        sh 'bash ci-cd-jenkins.sh'
                     } else {
                         // Windows系统
                         bat '''

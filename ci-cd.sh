@@ -49,23 +49,12 @@ echo "========================================="
 echo "    memsci项目 CI/CD Pipeline 开始"
 echo "========================================="
 
-# Stage 1: Checkout
-log_info "Stage 1: 检出源代码..."
-if [ ! -d ".git" ]; then
-    log_info "克隆仓库..."
-    git clone https://gitclone.com/github.com/lanceyq/cursor-MultiAgents.git temp_repo
-    cd temp_repo
-    git checkout memsci-project
-    cp -r memsciCICD/* ../
-    cd ..
-    rm -rf temp_repo
-else
-    log_info "更新现有仓库..."
-    git fetch origin
-    git checkout memsci-project
-    git pull origin memsci-project
-fi
-log_success "源代码检出完成"
+# Stage 1: 验证工作目录
+log_info "Stage 1: 验证工作目录..."
+log_info "当前工作目录: $(pwd)"
+log_info "目录内容:"
+ls -la
+log_success "工作目录验证完成"
 
 # Stage 2: Setup Environment
 log_info "Stage 2: 设置Python环境..."
