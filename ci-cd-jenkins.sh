@@ -242,8 +242,8 @@ log_info "Stage 3: 安装项目依赖..."
 # 安装依赖（支持虚拟环境和系统Python环境）
 if [ -f "pyproject.toml" ]; then
     if command -v poetry &> /dev/null; then
-        log_info "使用Poetry安装依赖（可能需要几分钟）..."
-        if poetry install --no-dev --no-interaction 2>/dev/null; then
+        log_info "使用Poetry安装依赖（包括测试依赖，可能需要几分钟）..."
+        if poetry install --no-interaction 2>/dev/null; then
             log_success "Poetry依赖安装完成"
         else
             log_warning "Poetry安装失败，尝试pip安装..."
@@ -256,6 +256,14 @@ if [ -f "pyproject.toml" ]; then
                 log_success "pip依赖安装完成"
             else
                 log_warning "未找到requirements.txt"
+            fi
+            
+            # 确保测试依赖已安装
+            log_info "确保测试依赖已安装..."
+            if [ "$VENV_CREATED" = true ]; then
+                $PIP_CMD install pytest pytest-asyncio --quiet 2>/dev/null || log_warning "测试依赖安装失败"
+            else
+                $PIP_CMD install --user pytest pytest-asyncio --quiet 2>/dev/null || $PIP_CMD install pytest pytest-asyncio --quiet 2>/dev/null || log_warning "测试依赖安装失败"
             fi
         fi
     else
@@ -270,6 +278,14 @@ if [ -f "pyproject.toml" ]; then
         else
             log_warning "无法使用Poetry且未找到requirements.txt，跳过依赖安装"
         fi
+        
+        # 确保测试依赖已安装
+        log_info "确保测试依赖已安装..."
+        if [ "$VENV_CREATED" = true ]; then
+            $PIP_CMD install pytest pytest-asyncio --quiet 2>/dev/null || log_warning "测试依赖安装失败"
+        else
+            $PIP_CMD install --user pytest pytest-asyncio --quiet 2>/dev/null || $PIP_CMD install pytest pytest-asyncio --quiet 2>/dev/null || log_warning "测试依赖安装失败"
+        fi
     fi
 elif [ -f "requirements.txt" ]; then
     log_info "使用pip安装依赖..."
@@ -279,8 +295,24 @@ elif [ -f "requirements.txt" ]; then
         $PIP_CMD install --user -r requirements.txt --quiet 2>/dev/null || $PIP_CMD install -r requirements.txt --quiet
     fi
     log_success "pip依赖安装完成"
+    
+    # 确保测试依赖已安装
+    log_info "确保测试依赖已安装..."
+    if [ "$VENV_CREATED" = true ]; then
+        $PIP_CMD install pytest pytest-asyncio --quiet 2>/dev/null || log_warning "测试依赖安装失败"
+    else
+        $PIP_CMD install --user pytest pytest-asyncio --quiet 2>/dev/null || $PIP_CMD install pytest pytest-asyncio --quiet 2>/dev/null || log_warning "测试依赖安装失败"
+    fi
 else
     log_warning "未找到依赖文件，跳过依赖安装"
+    
+    # 即使没有依赖文件，也尝试安装基本的测试依赖
+    log_info "尝试安装基本测试依赖..."
+    if [ "$VENV_CREATED" = true ]; then
+        $PIP_CMD install pytest pytest-asyncio --quiet 2>/dev/null || log_warning "测试依赖安装失败"
+    else
+        $PIP_CMD install --user pytest pytest-asyncio --quiet 2>/dev/null || $PIP_CMD install pytest pytest-asyncio --quiet 2>/dev/null || log_warning "测试依赖安装失败"
+    fi
 fi
 
 # Stage 4: Code Quality Check
@@ -307,12 +339,25 @@ log_info "Stage 5: 运行测试..."
 
 # 运行测试
 if [ -d "tests" ]; then
-    if command -v pytest &> /dev/null; then
+    # 检查pytest是否可用
+    if command -v pytest &> /dev/null || $PYTHON_CMD -m pytest --version &> /dev/null; then
         log_info "使用pytest运行测试..."
-        poetry run pytest tests/ --junitxml="$BUILD_DIR/test-results.xml" --cov=src --cov-report=xml:"$BUILD_DIR/coverage.xml" || log_warning "部分测试失败"
+        if command -v poetry &> /dev/null && [ -f "pyproject.toml" ]; then
+            # 使用Poetry运行pytest
+            poetry run pytest tests/ --junitxml="$BUILD_DIR/test-results.xml" --cov=src --cov-report=xml:"$BUILD_DIR/coverage.xml" || log_warning "部分测试失败"
+        else
+            # 直接使用pytest
+            if [ "$VENV_CREATED" = true ]; then
+                $PYTHON_CMD -m pytest tests/ --junitxml="$BUILD_DIR/test-results.xml" || log_warning "部分测试失败"
+            else
+                pytest tests/ --junitxml="$BUILD_DIR/test-results.xml" || log_warning "部分测试失败"
+            fi
+        fi
     elif command -v python &> /dev/null; then
-        log_info "使用unittest运行测试..."
+        log_info "pytest不可用，使用unittest运行测试..."
         $PYTHON_CMD -m unittest discover tests/ || log_warning "部分测试失败"
+    else
+        log_warning "无法找到Python或pytest，跳过测试"
     fi
 else
     log_warning "未找到tests目录，跳过测试"
