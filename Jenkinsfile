@@ -11,7 +11,15 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo 'Checking out source code...'
-                checkout scm
+                // 使用GitHub凭据进行认证
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: '*/memsci-project']],
+                    userRemoteConfigs: [[
+                        url: 'https://github.com/lanceyq/cursor-MultiAgents.git',
+                        credentialsId: 'github-pat-credentials'
+                    ]]
+                ])
             }
         }
         
