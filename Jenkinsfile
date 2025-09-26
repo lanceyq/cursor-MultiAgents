@@ -28,15 +28,16 @@ pipeline {
                 echo 'Setting up Python environment...'
                 script {
                     // 检查Python版本
-                    sh 'python3 --version || python --version'
+                    bat 'python --version'
                     
                     // 安装Poetry（如果没有安装）
-                    sh '''
-                        if ! command -v poetry &> /dev/null; then
-                            echo "Installing Poetry..."
-                            curl -sSL https://install.python-poetry.org | python3 -
-                            export PATH="$HOME/.local/bin:$PATH"
-                        fi
+                    bat '''
+                        where poetry >nul 2>&1
+                        if %errorlevel% neq 0 (
+                            echo Installing Poetry...
+                            curl -sSL https://install.python-poetry.org | python -
+                            set PATH=%APPDATA%\\Python\\Scripts;%PATH%
+                        )
                         poetry --version
                     '''
                 }
@@ -47,9 +48,9 @@ pipeline {
             steps {
                 echo 'Installing project dependencies...'
                 script {
-                    sh '''
-                        export PATH="$HOME/.local/bin:$PATH"
-                        poetry install --no-dev
+                    bat '''
+                        set PATH=%APPDATA%\\Python\\Scripts;%PATH%
+                        poetry install
                     '''
                 }
             }
@@ -59,12 +60,12 @@ pipeline {
             steps {
                 echo 'Running code linting...'
                 script {
-                    sh '''
-                        export PATH="$HOME/.local/bin:$PATH"
-                        # 如果项目中有linting工具，可以在这里运行
-                        # poetry run flake8 src/ tests/ || true
-                        # poetry run black --check src/ tests/ || true
-                        echo "Linting completed"
+                    bat '''
+                        set PATH=%APPDATA%\\Python\\Scripts;%PATH%
+                        REM 如果项目中有linting工具，可以在这里运行
+                        REM poetry run flake8 src/ tests/ || exit /b 0
+                        REM poetry run black --check src/ tests/ || exit /b 0
+                        echo Linting completed
                     '''
                 }
             }
@@ -74,13 +75,13 @@ pipeline {
             steps {
                 echo 'Running automated tests...'
                 script {
-                    sh '''
-                        export PATH="$HOME/.local/bin:$PATH"
-                        # 设置环境变量（如果需要）
-                        export PYTHONPATH="${WORKSPACE}/src:$PYTHONPATH"
+                    bat '''
+                        set PATH=%APPDATA%\\Python\\Scripts;%PATH%
+                        REM 设置环境变量（如果需要）
+                        set PYTHONPATH=%WORKSPACE%\\src;%PYTHONPATH%
                         
-                        # 运行pytest测试
-                        poetry run pytest tests/ -v --tb=short --junitxml=test-results.xml || true
+                        REM 运行pytest测试
+                        poetry run pytest tests/ -v --tb=short --junitxml=test-results.xml || exit /b 0
                     '''
                 }
             }
@@ -96,8 +97,8 @@ pipeline {
             steps {
                 echo 'Building package...'
                 script {
-                    sh '''
-                        export PATH="$HOME/.local/bin:$PATH"
+                    bat '''
+                        set PATH=%APPDATA%\\Python\\Scripts;%PATH%
                         poetry build
                     '''
                 }
