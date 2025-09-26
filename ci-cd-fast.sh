@@ -56,50 +56,105 @@ log_info "项目文件检查:"
 [ -d "tests" ] && log_info "✓ tests/ 目录存在" || log_warning "✗ tests/ 目录不存在"
 log_success "工作空间验证完成"
 
-# Stage 2: 环境检查（不安装）
-log_info "Stage 2: 检查现有环境..."
+# Stage 2: 设置Python环境...
+log_info "Stage 2: 设置Python环境..."
 
 # 检查Python
 if command -v python3 &> /dev/null; then
     PYTHON_CMD="python3"
-    log_info "✓ Python3: $($PYTHON_CMD --version)"
+    log_info "Python版本: $($PYTHON_CMD --version)"
 elif command -v python &> /dev/null; then
     PYTHON_CMD="python"
-    log_info "✓ Python: $($PYTHON_CMD --version)"
+    log_info "Python版本: $($PYTHON_CMD --version)"
 else
     log_error "✗ 未找到Python"
     exit 1
 fi
 
-# 检查Poetry（不安装）
+# 设置虚拟环境
+VENV_DIR=".venv"
+if [ ! -d "$VENV_DIR" ]; then
+    log_info "创建虚拟环境..."
+    $PYTHON_CMD -m venv "$VENV_DIR"
+    if [ $? -eq 0 ]; then
+        log_success "虚拟环境创建成功"
+    else
+        log_error "虚拟环境创建失败"
+        exit 1
+    fi
+fi
+
+# 激活虚拟环境
+log_info "激活虚拟环境..."
+if [ -f "$VENV_DIR/bin/activate" ]; then
+    source "$VENV_DIR/bin/activate"
+    PYTHON_CMD="$VENV_DIR/bin/python"
+    PIP_CMD="$VENV_DIR/bin/pip"
+elif [ -f "$VENV_DIR/Scripts/activate" ]; then
+    source "$VENV_DIR/Scripts/activate"
+    PYTHON_CMD="$VENV_DIR/Scripts/python"
+    PIP_CMD="$VENV_DIR/Scripts/pip"
+else
+    log_error "虚拟环境激活脚本未找到"
+    exit 1
+fi
+
+log_success "虚拟环境已激活"
+
+# 检查Poetry（在虚拟环境中）
 if command -v poetry &> /dev/null; then
     log_info "✓ Poetry: $(poetry --version)"
     USE_POETRY=true
 else
-    log_warning "✗ Poetry未安装，将使用pip"
-    USE_POETRY=false
+    log_info "Poetry未找到，尝试快速安装..."
+    if $PIP_CMD install poetry --quiet; then
+        log_success "Poetry安装成功"
+        USE_POETRY=true
+    else
+        log_info "pip安装失败，使用官方安装脚本..."
+        if curl -sSL https://install.python-poetry.org | $PYTHON_CMD -; then
+            export PATH="$HOME/.local/bin:$PATH"
+            if command -v poetry &> /dev/null; then
+                log_success "Poetry官方安装成功"
+                USE_POETRY=true
+            else
+                log_warning "Poetry安装失败，将使用pip"
+                USE_POETRY=false
+            fi
+        else
+            log_warning "Poetry安装失败，将使用pip"
+            USE_POETRY=false
+        fi
+    fi
 fi
 
 log_success "环境检查完成"
 
-# Stage 3: 快速依赖检查
-log_info "Stage 3: 快速依赖检查..."
+# Stage 3: 快速依赖安装
+log_info "Stage 3: 快速依赖安装..."
 
 if [ "$USE_POETRY" = true ] && [ -f "pyproject.toml" ]; then
-    log_info "检查Poetry环境..."
-    if poetry env info &> /dev/null; then
-        log_info "✓ Poetry虚拟环境已存在"
+    log_info "使用Poetry安装依赖..."
+    if poetry install --no-dev --no-interaction --quiet; then
+        log_success "Poetry依赖安装成功"
     else
-        log_warning "Poetry虚拟环境不存在，创建中..."
-        poetry install --no-dev --no-interaction --quiet
+        log_warning "Poetry安装失败，尝试pip安装..."
+        if [ -f "requirements.txt" ]; then
+            $PIP_CMD install -r requirements.txt --quiet
+        else
+            log_warning "未找到requirements.txt"
+        fi
     fi
 elif [ -f "requirements.txt" ]; then
-    log_info "使用系统Python环境"
+    log_info "使用pip安装依赖..."
+    if $PIP_CMD install -r requirements.txt --quiet; then
+        log_success "pip依赖安装成功"
+    else
+        log_warning "pip依赖安装失败"
+    fi
 else
-    log_warning "未找到依赖配置文件"
+    log_warning "未找到依赖配置文件，跳过依赖安装"
 fi
-
-log_success "依赖检查完成"
 
 # Stage 4: 代码质量检查（简化）
 log_info "Stage 4: 快速代码检查..."
