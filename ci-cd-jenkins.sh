@@ -76,25 +76,55 @@ fi
 
 log_info "Python版本: $($PYTHON_CMD --version)"
 
-# 检查并安装Poetry
+# 设置虚拟环境
+VENV_DIR=".venv"
+if [ ! -d "$VENV_DIR" ]; then
+    log_info "创建虚拟环境..."
+    $PYTHON_CMD -m venv "$VENV_DIR"
+    if [ $? -eq 0 ]; then
+        log_success "虚拟环境创建成功"
+    else
+        log_error "虚拟环境创建失败"
+        exit 1
+    fi
+fi
+
+# 激活虚拟环境
+log_info "激活虚拟环境..."
+if [ -f "$VENV_DIR/bin/activate" ]; then
+    source "$VENV_DIR/bin/activate"
+    PYTHON_CMD="$VENV_DIR/bin/python"
+    PIP_CMD="$VENV_DIR/bin/pip"
+elif [ -f "$VENV_DIR/Scripts/activate" ]; then
+    source "$VENV_DIR/Scripts/activate"
+    PYTHON_CMD="$VENV_DIR/Scripts/python"
+    PIP_CMD="$VENV_DIR/Scripts/pip"
+else
+    log_error "虚拟环境激活脚本未找到"
+    exit 1
+fi
+
+log_success "虚拟环境已激活"
+
+# 检查并安装Poetry（在虚拟环境中）
 if ! command -v poetry &> /dev/null; then
     log_info "Poetry未找到，尝试快速安装..."
     
-    # 尝试使用pip安装（更快）
-    if $PYTHON_CMD -m pip install poetry --user --quiet; then
-        log_info "使用pip安装Poetry成功"
-        export PATH="$HOME/.local/bin:$PATH"
+    # 尝试使用pip安装（在虚拟环境中更安全）
+    if $PIP_CMD install poetry --quiet; then
+        log_success "使用pip安装Poetry成功"
     else
         log_info "pip安装失败，使用官方安装脚本..."
-        curl -sSL https://install.python-poetry.org | $PYTHON_CMD -
-        export PATH="$HOME/.local/bin:$PATH"
-    fi
-    
-    # 验证安装
-    if command -v poetry &> /dev/null; then
-        log_success "Poetry安装成功: $(poetry --version)"
-    else
-        log_warning "Poetry安装可能失败，尝试直接使用pip进行依赖管理"
+        if curl -sSL https://install.python-poetry.org | $PYTHON_CMD -; then
+            export PATH="$HOME/.local/bin:$PATH"
+            if command -v poetry &> /dev/null; then
+                log_success "Poetry官方安装成功"
+            else
+                log_warning "Poetry安装失败，将使用pip进行依赖管理"
+            fi
+        else
+            log_warning "Poetry安装失败，将使用pip进行依赖管理"
+        fi
     fi
 else
     log_info "Poetry已安装: $(poetry --version)"
@@ -104,25 +134,33 @@ log_success "环境设置完成"
 
 # Stage 3: Install Dependencies
 log_info "Stage 3: 安装项目依赖..."
-export PATH="$HOME/.local/bin:$PATH"
 
-# 创建虚拟环境并安装依赖
+# 在虚拟环境中安装依赖
 if [ -f "pyproject.toml" ]; then
     if command -v poetry &> /dev/null; then
         log_info "使用Poetry安装依赖（可能需要几分钟）..."
-        poetry install --no-dev --no-interaction
-        log_success "Poetry依赖安装完成"
+        if poetry install --no-dev --no-interaction; then
+            log_success "Poetry依赖安装完成"
+        else
+            log_warning "Poetry安装失败，尝试pip安装..."
+            if [ -f "requirements.txt" ]; then
+                $PIP_CMD install -r requirements.txt --quiet
+            else
+                log_warning "未找到requirements.txt"
+            fi
+        fi
     else
         log_info "Poetry不可用，尝试使用pip安装..."
         if [ -f "requirements.txt" ]; then
-            $PYTHON_CMD -m pip install -r requirements.txt --user --quiet
+            $PIP_CMD install -r requirements.txt --quiet
+            log_success "pip依赖安装完成"
         else
             log_warning "无法使用Poetry且未找到requirements.txt，跳过依赖安装"
         fi
     fi
 elif [ -f "requirements.txt" ]; then
     log_info "使用pip安装依赖..."
-    $PYTHON_CMD -m pip install -r requirements.txt --user --quiet
+    $PIP_CMD install -r requirements.txt --quiet
     log_success "pip依赖安装完成"
 else
     log_warning "未找到依赖文件，跳过依赖安装"
