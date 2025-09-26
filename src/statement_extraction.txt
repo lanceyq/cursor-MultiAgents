@@ -1,4 +1,4 @@
-Extracted Statements (82 total)
+Extracted Statements (15 total)
 ==================================================
 
 Statement 1:
@@ -44,44 +44,44 @@ Relevence Info: RELEVANT
 ------------------------------
 
 Statement 7:
-Content: 张曼婷正在读《小王子》这本书。
+Content: 张曼婷喜欢散步和品茶。
+Type: FACT
+Temporal Info: STATIC
+Relevence Info: RELEVANT
+------------------------------
+
+Statement 8:
+Content: 张曼婷最近在读《小王子》这本书。
 Type: FACT
 Temporal Info: DYNAMIC
 Relevence Info: RELEVANT
 ------------------------------
 
-Statement 8:
+Statement 9:
 Content: 张曼婷很喜欢狐狸说的那句话：“你只有用心去看，才能看到真正的东西。”
 Type: FACT
 Temporal Info: STATIC
 Relevence Info: RELEVANT
 ------------------------------
 
-Statement 9:
-Content: 张曼婷觉得这句话让她感触颇深。
+Statement 10:
+Content: 张曼婷认为在绘画时应该更加用心去观察，不仅外表，还要感受被画对象的内在美。
 Type: OPINION
 Temporal Info: STATIC
 Relevence Info: RELEVANT
 ------------------------------
 
-Statement 10:
-Content: 张曼婷觉得她在绘画时也应该更加用心去观察。
-Type: SUGGESTION
+Statement 11:
+Content: 张曼婷散步让她放松心情。
+Type: FACT
 Temporal Info: STATIC
 Relevence Info: RELEVANT
 ------------------------------
 
-Statement 11:
-Content: 散步让张曼婷放松心情。
-Type: FACT
-Temporal Info: ATEMPORAL
-Relevence Info: RELEVANT
-------------------------------
-
 Statement 12:
-Content: 品茶让张曼婷静下心来思考。
+Content: 张曼婷品茶让她静下心来思考。
 Type: FACT
-Temporal Info: ATEMPORAL
+Temporal Info: STATIC
 Relevence Info: RELEVANT
 ------------------------------
 
@@ -93,484 +93,15 @@ Relevence Info: RELEVANT
 ------------------------------
 
 Statement 14:
-Content: 张曼婷最喜欢去公园。
+Content: 张曼婷最喜欢去公园，看着孩子们玩耍，听着鸟儿歌唱。
 Type: FACT
-Temporal Info: ATEMPORAL
+Temporal Info: STATIC
 Relevence Info: RELEVANT
 ------------------------------
 
 Statement 15:
-Content: 张曼婷不擅长用文字表达。
-Type: FACT
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 16:
-Content: 张曼婷得准备睡觉了。
-Type: FACT
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 17:
-Content: 王峰在跑步的时候，追上了一个穿着古装的团队。
-Type: FACT
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 18:
-Content: 王峰对历史剧感兴趣。
-Type: FACT
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 19:
-Content: 王峰最近在读《二战全史》。
-Type: FACT
-Temporal Info: DYNAMIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 20:
-Content: 王峰打算下个月去访问抗战纪念馆。
-Type: PREDICTION
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 21:
-Content: 王峰喜欢打篮球来放松身心。
-Type: FACT
-Temporal Info: ATEMPORAL
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 22:
-Content: 王峰通常打小前锋。
-Type: FACT
-Temporal Info: ATEMPORAL
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 23:
-Content: 王峰喜欢快攻和远投。
-Type: FACT
-Temporal Info: ATEMPORAL
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 24:
-Content: 王峰打算试试新的突破技巧。
-Type: SUGGESTION
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 25:
-Content: 王峰对攀岩非常热情。
-Type: FACT
-Temporal Info: ATEMPORAL
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 26:
-Content: 王峰打算增加核心力量训练。
-Type: SUGGESTION
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 27:
-Content: 王峰通常做一些特定的体能训练。
-Type: FACT
-Temporal Info: ATEMPORAL
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 28:
-Content: 王峰徒步时会带上足够的水和食物。
-Type: FACT
-Temporal Info: ATEMPORAL
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 29:
-Content: 王峰徒步时还会带急救包、多功能刀具。
-Type: FACT
-Temporal Info: ATEMPORAL
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 30:
-Content: 王峰徒步时喜欢拍照。
-Type: FACT
-Temporal Info: ATEMPORAL
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 31:
-Content: 王峰徒步时喜欢独自前行。
-Type: FACT
-Temporal Info: ATEMPORAL
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 32:
-Content: 王峰徒步时也喜欢和朋友一起。
-Type: FACT
-Temporal Info: ATEMPORAL
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 33:
-Content: 王峰遇到过一次迷路的小狗。
-Type: FACT
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 34:
-Content: 王峰有写一本关于战术演变的书的想法。
-Type: SUGGESTION
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 35:
-Content: 王峰最近在研究越战期间的丛林战术。
-Type: FACT
-Temporal Info: DYNAMIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 36:
-Content: 王峰得了20分，还有几次助攻和抢断。
-Type: FACT
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 37:
-Content: 王峰团队的配合越来越默契。
-Type: FACT
-Temporal Info: DYNAMIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 38:
-Content: 王峰每周固定练习篮球两次。
-Type: FACT
-Temporal Info: DYNAMIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 39:
-Content: 王峰计划去徒步。
-Type: PREDICTION
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 40:
-Content: 王峰计划去探索一条新路线。
-Type: PREDICTION
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 41:
-Content: 那条路线风景特别好。
-Type: FACT
-Temporal Info: ATEMPORAL
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 42:
-Content: 那条路线沿途有几个小瀑布。
-Type: FACT
-Temporal Info: ATEMPORAL
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 43:
-Content: 那条路线有个可以俯瞰整个山谷的观景台。
-Type: FACT
-Temporal Info: ATEMPORAL
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 44:
-Content: 李雪最近看了一部电影《时间旅行者的妻子》。
-Type: FACT
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 45:
-Content: 李雪最喜欢《时间旅行者的妻子》中跨越时间的爱情。
-Type: FACT
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 46:
-Content: 李雪上周末去了一个小众的海滩。
-Type: FACT
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 47:
-Content: 那里的沙子是粉红色的。
-Type: FACT
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 48:
-Content: 李雪捡了些贝壳，打算做成手链。
-Type: FACT
-Temporal Info: DYNAMIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 49:
-Content: 李雪打算把手链串在一起，中间加上一些小金属饰品。
-Type: SUGGESTION
-Temporal Info: DYNAMIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 50:
-Content: 李雪最近在写一篇关于旅行的文章。
-Type: FACT
-Temporal Info: DYNAMIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 51:
-Content: 李雪写到一半，突然不知道怎么把她的感受转化成文字。
-Type: FACT
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 52:
-Content: 李雪想表达的是旅行中那种自由自在的感觉。
+Content: 张曼婷不太擅长用文字表达。
 Type: OPINION
-Temporal Info: ATEMPORAL
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 53:
-Content: 李雪想从那次独自一人走在海边的经历写起。
-Type: SUGGESTION
-Temporal Info: DYNAMIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 54:
-Content: 李雪想去一个没有去过的地方探险。
-Type: PREDICTION
-Temporal Info: DYNAMIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 55:
-Content: 李雪想去冰岛看极光。
-Type: PREDICTION
-Temporal Info: DYNAMIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 56:
-Content: 李雪最喜欢的一次演唱会是Coldplay的演唱会。
-Type: FACT
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 57:
-Content: 李雪最近看了几首The Lumineers的歌。
-Type: FACT
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 58:
-Content: 李雪超爱Imagine Dragons的《Believer》。
-Type: FACT
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 59:
-Content: 李雪最近想去看看新上映的那部科幻片《星际穿越者》。
-Type: PREDICTION
-Temporal Info: DYNAMIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 60:
-Content: 科幻电影最吸引李雪的就是那种无限的想象力和对未来的探索。
-Type: OPINION
-Temporal Info: ATEMPORAL
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 61:
-Content: 李雪最近看了一部电影《时间旅行者的妻子》。
-Type: FACT
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 62:
-Content: 李雪最喜欢《时间旅行者的妻子》中跨越时间的爱情。
-Type: FACT
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 63:
-Content: 李雪上周末去了一个小众的海滩。
-Type: FACT
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 64:
-Content: 那个海滩的沙子是粉红色的。
-Type: FACT
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 65:
-Content: 李雪捡了些贝壳，打算做成手链。
-Type: FACT
-Temporal Info: DYNAMIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 66:
-Content: 李雪打算把手链串在一起，中间加上一些小金属饰品。
-Type: FACT
-Temporal Info: DYNAMIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 67:
-Content: 李雪最近写了一篇关于旅行的文章。
-Type: FACT
-Temporal Info: DYNAMIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 68:
-Content: 李雪写到一半，突然不知道怎么把她的感受转化成文字。
-Type: FACT
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 69:
-Content: 李雪想表达的是旅行中那种自由自在的感觉。
-Type: FACT
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 70:
-Content: 李雪想从独自一人走在海边的经历写起。
-Type: FACT
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 71:
-Content: 李雪想表达的是那种只有海浪声陪伴的宁静。
-Type: FACT
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 72:
-Content: 李雪想去一个没有去过的地方探险。
-Type: SUGGESTION
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 73:
-Content: 李雪想去冰岛看极光。
-Type: FACT
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 74:
-Content: 李雪觉得科幻电影最吸引她的就是那种无限的想象力和对未来的探索。
-Type: OPINION
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 75:
-Content: 李雪最近还想去看看新上映的那部科幻片《星际穿越者》。
-Type: FACT
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 76:
-Content: 李雪最近挺想去看看新上映的那部科幻片《星际穿越者》，听说特效做得很棒。
-Type: FACT
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 77:
-Content: 李雪最喜欢的一次演唱会是Coldplay的演唱会。
-Type: FACT
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 78:
-Content: 李雪闭上眼睛，感觉自己完全沉浸在音乐里。
-Type: FACT
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 79:
-Content: 李雪觉得那种感觉无法用言语表达，只能自己体验。
-Type: OPINION
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 80:
-Content: 李雪按照昨天的想法，写了一段关于海边散步的描写。
-Type: FACT
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 81:
-Content: 李雪觉得这段文字活了起来。
-Type: OPINION
-Temporal Info: STATIC
-Relevence Info: RELEVANT
-------------------------------
-
-Statement 82:
-Content: 李雪有一段描述是这样的：“海风轻拂过脸庞，带着咸咸的海水味和远处渔火的微光，我仿佛能听到星星在耳边低语。”
-Type: FACT
 Temporal Info: STATIC
 Relevence Info: RELEVANT
 ------------------------------
