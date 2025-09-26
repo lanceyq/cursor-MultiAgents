@@ -78,44 +78,101 @@ log_info "Python版本: $($PYTHON_CMD --version)"
 
 # 设置虚拟环境
 VENV_DIR=".venv"
+VENV_CREATED=false
+
 if [ ! -d "$VENV_DIR" ]; then
     log_info "创建虚拟环境..."
-    $PYTHON_CMD -m venv "$VENV_DIR"
-    if [ $? -eq 0 ]; then
+    
+    # 尝试使用标准venv模块创建虚拟环境
+    if $PYTHON_CMD -m venv "$VENV_DIR" 2>/dev/null; then
         log_success "虚拟环境创建成功"
+        VENV_CREATED=true
     else
-        log_error "虚拟环境创建失败"
-        exit 1
+        log_warning "标准venv创建失败，尝试备用方案..."
+        
+        # 备用方案1: 尝试使用virtualenv
+        if command -v virtualenv &> /dev/null; then
+            log_info "使用virtualenv创建虚拟环境..."
+            if virtualenv "$VENV_DIR" 2>/dev/null; then
+                log_success "使用virtualenv创建虚拟环境成功"
+                VENV_CREATED=true
+            fi
+        fi
+        
+        # 备用方案2: 如果virtualenv也不可用，尝试安装它
+        if [ "$VENV_CREATED" = false ]; then
+            log_info "尝试安装virtualenv..."
+            if $PYTHON_CMD -m pip install virtualenv --user --quiet 2>/dev/null; then
+                if $PYTHON_CMD -m virtualenv "$VENV_DIR" 2>/dev/null; then
+                    log_success "安装virtualenv后创建虚拟环境成功"
+                    VENV_CREATED=true
+                fi
+            fi
+        fi
+        
+        # 如果所有虚拟环境方案都失败，继续使用系统Python
+        if [ "$VENV_CREATED" = false ]; then
+            log_warning "无法创建虚拟环境，将使用系统Python环境"
+            log_warning "建议在Jenkins节点上安装: apt install python3-venv 或 yum install python3-venv"
+            # 创建一个假的venv目录结构以保持脚本兼容性
+            mkdir -p "$VENV_DIR"
+        fi
     fi
+else
+    log_info "虚拟环境已存在"
+    VENV_CREATED=true
 fi
 
 # 激活虚拟环境
 log_info "激活虚拟环境..."
-if [ -f "$VENV_DIR/bin/activate" ]; then
-    source "$VENV_DIR/bin/activate"
-    PYTHON_CMD="$VENV_DIR/bin/python"
-    PIP_CMD="$VENV_DIR/bin/pip"
-elif [ -f "$VENV_DIR/Scripts/activate" ]; then
-    source "$VENV_DIR/Scripts/activate"
-    PYTHON_CMD="$VENV_DIR/Scripts/python"
-    PIP_CMD="$VENV_DIR/Scripts/pip"
+if [ "$VENV_CREATED" = true ]; then
+    if [ -f "$VENV_DIR/bin/activate" ]; then
+        source "$VENV_DIR/bin/activate"
+        PYTHON_CMD="$VENV_DIR/bin/python"
+        PIP_CMD="$VENV_DIR/bin/pip"
+        log_success "虚拟环境已激活"
+    elif [ -f "$VENV_DIR/Scripts/activate" ]; then
+        source "$VENV_DIR/Scripts/activate"
+        PYTHON_CMD="$VENV_DIR/Scripts/python"
+        PIP_CMD="$VENV_DIR/Scripts/pip"
+        log_success "虚拟环境已激活"
+    else
+        log_warning "虚拟环境激活脚本未找到，使用系统Python"
+        PIP_CMD="$PYTHON_CMD -m pip"
+    fi
 else
-    log_error "虚拟环境激活脚本未找到"
-    exit 1
+    log_info "使用系统Python环境"
+    PIP_CMD="$PYTHON_CMD -m pip"
 fi
 
-log_success "虚拟环境已激活"
-
-# 检查并安装Poetry（在虚拟环境中）
+# 检查并安装Poetry
 if ! command -v poetry &> /dev/null; then
     log_info "Poetry未找到，尝试快速安装..."
     
-    # 尝试使用pip安装（在虚拟环境中更安全）
-    if $PIP_CMD install poetry --quiet; then
-        log_success "使用pip安装Poetry成功"
+    # 如果使用虚拟环境，优先使用pip安装
+    if [ "$VENV_CREATED" = true ]; then
+        if $PIP_CMD install poetry --quiet 2>/dev/null; then
+            log_success "使用pip安装Poetry成功"
+        else
+            log_info "pip安装失败，使用官方安装脚本..."
+            if curl -sSL https://install.python-poetry.org | $PYTHON_CMD - 2>/dev/null; then
+                export PATH="$HOME/.local/bin:$PATH"
+                if command -v poetry &> /dev/null; then
+                    log_success "Poetry官方安装成功"
+                else
+                    log_warning "Poetry安装失败，将使用pip进行依赖管理"
+                fi
+            else
+                log_warning "Poetry安装失败，将使用pip进行依赖管理"
+            fi
+        fi
     else
-        log_info "pip安装失败，使用官方安装脚本..."
-        if curl -sSL https://install.python-poetry.org | $PYTHON_CMD -; then
+        # 系统Python环境下，尝试用户级安装
+        log_info "在系统Python环境中尝试安装Poetry..."
+        if $PIP_CMD install --user poetry --quiet 2>/dev/null; then
+            export PATH="$HOME/.local/bin:$PATH"
+            log_success "使用pip用户级安装Poetry成功"
+        elif curl -sSL https://install.python-poetry.org | $PYTHON_CMD - 2>/dev/null; then
             export PATH="$HOME/.local/bin:$PATH"
             if command -v poetry &> /dev/null; then
                 log_success "Poetry官方安装成功"
@@ -135,16 +192,21 @@ log_success "环境设置完成"
 # Stage 3: Install Dependencies
 log_info "Stage 3: 安装项目依赖..."
 
-# 在虚拟环境中安装依赖
+# 安装依赖（支持虚拟环境和系统Python环境）
 if [ -f "pyproject.toml" ]; then
     if command -v poetry &> /dev/null; then
         log_info "使用Poetry安装依赖（可能需要几分钟）..."
-        if poetry install --no-dev --no-interaction; then
+        if poetry install --no-dev --no-interaction 2>/dev/null; then
             log_success "Poetry依赖安装完成"
         else
             log_warning "Poetry安装失败，尝试pip安装..."
             if [ -f "requirements.txt" ]; then
-                $PIP_CMD install -r requirements.txt --quiet
+                if [ "$VENV_CREATED" = true ]; then
+                    $PIP_CMD install -r requirements.txt --quiet
+                else
+                    $PIP_CMD install --user -r requirements.txt --quiet 2>/dev/null || $PIP_CMD install -r requirements.txt --quiet
+                fi
+                log_success "pip依赖安装完成"
             else
                 log_warning "未找到requirements.txt"
             fi
@@ -152,7 +214,11 @@ if [ -f "pyproject.toml" ]; then
     else
         log_info "Poetry不可用，尝试使用pip安装..."
         if [ -f "requirements.txt" ]; then
-            $PIP_CMD install -r requirements.txt --quiet
+            if [ "$VENV_CREATED" = true ]; then
+                $PIP_CMD install -r requirements.txt --quiet
+            else
+                $PIP_CMD install --user -r requirements.txt --quiet 2>/dev/null || $PIP_CMD install -r requirements.txt --quiet
+            fi
             log_success "pip依赖安装完成"
         else
             log_warning "无法使用Poetry且未找到requirements.txt，跳过依赖安装"
@@ -160,7 +226,11 @@ if [ -f "pyproject.toml" ]; then
     fi
 elif [ -f "requirements.txt" ]; then
     log_info "使用pip安装依赖..."
-    $PIP_CMD install -r requirements.txt --quiet
+    if [ "$VENV_CREATED" = true ]; then
+        $PIP_CMD install -r requirements.txt --quiet
+    else
+        $PIP_CMD install --user -r requirements.txt --quiet 2>/dev/null || $PIP_CMD install -r requirements.txt --quiet
+    fi
     log_success "pip依赖安装完成"
 else
     log_warning "未找到依赖文件，跳过依赖安装"
