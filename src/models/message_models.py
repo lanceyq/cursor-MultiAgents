@@ -64,7 +64,9 @@ class Chunk(BaseModel):
         """Create a chunk from a list of messages."""
         if metadata is None:
             metadata = {}
-        return cls(text=messages, metadata=metadata)
+        # Generate content from messages
+        content = "\n".join([f"{msg.role}: {msg.msg}" for msg in messages])
+        return cls(text=messages, content=content, metadata=metadata)
 
 
 # Define the main data model for the entire input JSON object.

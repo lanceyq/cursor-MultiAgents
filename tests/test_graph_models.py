@@ -4,12 +4,13 @@ from pydantic import ValidationError
 
 from models.graph_models import (
     Edge,
-    EntityEdge,
+    EntityEntityEdge,
     ChunkEdge,
     ChunkEntityEdge,
     Node,
-    ChunkNode,
-    EntityNode,
+    DialogueNode,
+    StatementNode,
+    ExtractedEntityNode,
 )
 from models.message_models import Statement
 
@@ -20,7 +21,7 @@ def basic_edge_data():
         "id": "edge1",
         "source": "node1",
         "target": "node2",
-        "groupid": "group1",
+        "group_id": "group1",
         "t_created": datetime.now(),
         "t_expired": datetime.now(),
     }
@@ -30,7 +31,7 @@ def basic_node_data():
     return {
         "id": "node1",
         "name": "Test Node",
-        "groupid": "group1",
+        "group_id": "group1",
         "t_created": datetime.now(),
         "t_expired": datetime.now(),
     }
@@ -38,10 +39,11 @@ def basic_node_data():
 @pytest.fixture
 def statement_data():
     return {
-        "role": "test_speaker",
-        "msg": "This is a test statement.",
+        "chunk_id": "chunk_1",
+        "statement": "This is a test statement.",
         "stmt_type": "FACT",
         "temporal_info": "STATIC",
+        "relevence_info": "RELEVANT",
     }
 
 # Tests for Edge
@@ -52,33 +54,29 @@ def test_edge_creation(basic_edge_data):
     assert edge.target == "node2"
 
 def test_edge_missing_field(basic_edge_data):
-    del basic_edge_data["id"]
+    del basic_edge_data["source"]  # Delete a required field without default
     with pytest.raises(ValidationError):
         Edge(**basic_edge_data)
 
-# Tests for EntityEdge
-def test_entity_edge_creation(basic_edge_data, statement_data):
+# Tests for EntityEntityEdge
+def test_entity_entity_edge_creation(basic_edge_data, statement_data):
     statement = Statement(**statement_data)
     entity_edge_data = {
         **basic_edge_data,
         "relation_type": "COLLABORATES_WITH",
-        "statement": statement,
-        "fact": "Test fact",
-        "t_valid": datetime.now(),
-        "t_invalid": datetime.now(),
+        "statement": statement.statement,  # Use statement text
+        "source_statement_id": "stmt_1",
+        "temporal_validity_valid_at": datetime.now(),
+        "temporal_validity_invalid_at": datetime.now(),
     }
-    entity_edge = EntityEdge(**entity_edge_data)
+    entity_edge = EntityEntityEdge(**entity_edge_data)
     assert entity_edge.relation_type == "COLLABORATES_WITH"
-    assert entity_edge.statement.role == "test_speaker"
+    assert entity_edge.statement == "This is a test statement."
 
 # Tests for ChunkEdge
 def test_chunk_edge_creation(basic_edge_data):
-    chunk_edge_data = {
-        **basic_edge_data,
-        "changed_topic": True,
-    }
-    chunk_edge = ChunkEdge(**chunk_edge_data)
-    assert chunk_edge.changed_topic is True
+    chunk_edge = ChunkEdge(**basic_edge_data)
+    assert chunk_edge.id == "edge1"
 
 # Tests for ChunkEntityEdge
 def test_chunk_entity_edge_creation(basic_edge_data):
@@ -96,27 +94,33 @@ def test_node_missing_field(basic_node_data):
     with pytest.raises(ValidationError):
         Node(**basic_node_data)
 
-# Tests for ChunkNode
-def test_chunk_node_creation(basic_node_data):
-    chunk_node_data = {
+# Tests for DialogueNode
+def test_dialogue_node_creation(basic_node_data):
+    dialogue_node_data = {
         **basic_node_data,
-        "content": "This is a test chunk.",
-        "list_of_entities": ["entity1", "entity2"],
-        "list_of_edges": ["edge1"],
+        "ref_id": "dialog_1",
+        "content": "This is a test dialogue.",
+        "temporal_validity_valid_at": datetime.now(),
+        "temporal_validity_invalid_at": datetime.now(),
+        "dialog_embedding": [0.1, 0.2, 0.3],
     }
-    chunk_node = ChunkNode(**chunk_node_data)
-    assert chunk_node.content == "This is a test chunk."
-    assert "entity1" in chunk_node.list_of_entities
+    dialogue_node = DialogueNode(**dialogue_node_data)
+    assert dialogue_node.content == "This is a test dialogue."
+    assert dialogue_node.ref_id == "dialog_1"
 
-# Tests for EntityNode
-def test_entity_node_creation(basic_node_data):
+# Tests for ExtractedEntityNode
+def test_extracted_entity_node_creation(basic_node_data):
     entity_node_data = {
         **basic_node_data,
+        "entity_idx": 1,
+        "statement_id": "stmt_1",
         "entity_type": "PERSON",
-        "entity_embedding": [0.1, 0.2, 0.3],
         "description": "A test entity.",
         "aliases": ["Testy", "McTestFace"],
+        "name_embedding": [0.1, 0.2, 0.3],
+        "fact_summary": "This is a fact summary about the entity.",
     }
-    entity_node = EntityNode(**entity_node_data)
+    entity_node = ExtractedEntityNode(**entity_node_data)
     assert entity_node.entity_type == "PERSON"
     assert entity_node.aliases[0] == "Testy"
+    assert entity_node.entity_idx == 1

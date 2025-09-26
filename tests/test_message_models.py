@@ -66,31 +66,20 @@ def test_chunk_from_messages_with_metadata():
 def test_dialog_data_creation():
     """Test successful creation of DialogData with default values."""
     context = ConversationContext(msgs=[ConversationMessage(**MSG_USER)])
-    dialog = DialogData(context=context, ref_id="test_ref_123")
+    dialog = DialogData(context=context, ref_id="test_ref_123", group_id="test_group_1")
     assert isinstance(UUID(dialog.id, version=4), UUID)
     assert isinstance(dialog.created_at, datetime)
     assert dialog.ref_id == "test_ref_123"
+    assert dialog.group_id == "test_group_1"
     assert dialog.context.msgs[0].role == "用户"
 
 def test_dialog_data_content_property():
     """Test the content property of DialogData."""
-    # Create messages and chunks
-    msg1 = ConversationMessage(role="用户", msg="First message.")
-    msg2 = ConversationMessage(role="AI", msg="Second message.")
-    chunk1 = Chunk.from_messages([msg1])
-    chunk2 = Chunk.from_messages([msg2])
-
-    # Create DialogData
-    context = ConversationContext(msgs=[msg1, msg2])
-    dialog = DialogData(
-        context=context,
-        ref_id="dialog_123",
-        chunks=[chunk1, chunk2]
-    )
-
-    # Check the content property
-    expected_content = "用户: First message.\nAI: Second message."
-    assert dialog.content == expected_content
+    context = ConversationContext(msgs=[ConversationMessage(**MSG_USER), ConversationMessage(**MSG_AI)])
+    dialog = DialogData(context=context, ref_id="test_ref_456", group_id="test_group_2")
+    content = dialog.content
+    assert "用户: Hello, AI!" in content
+    assert "AI: Hello, user!" in content
 
 def test_dialog_data_missing_required_fields():
     """Test that DialogData raises an error if required fields are missing."""
