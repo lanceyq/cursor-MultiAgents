@@ -78,9 +78,24 @@ log_info "Python版本: $($PYTHON_CMD --version)"
 
 # 检查并安装Poetry
 if ! command -v poetry &> /dev/null; then
-    log_info "安装Poetry..."
-    curl -sSL https://install.python-poetry.org | $PYTHON_CMD -
-    export PATH="$HOME/.local/bin:$PATH"
+    log_info "Poetry未找到，尝试快速安装..."
+    
+    # 尝试使用pip安装（更快）
+    if $PYTHON_CMD -m pip install poetry --user --quiet; then
+        log_info "使用pip安装Poetry成功"
+        export PATH="$HOME/.local/bin:$PATH"
+    else
+        log_info "pip安装失败，使用官方安装脚本..."
+        curl -sSL https://install.python-poetry.org | $PYTHON_CMD -
+        export PATH="$HOME/.local/bin:$PATH"
+    fi
+    
+    # 验证安装
+    if command -v poetry &> /dev/null; then
+        log_success "Poetry安装成功: $(poetry --version)"
+    else
+        log_warning "Poetry安装可能失败，尝试直接使用pip进行依赖管理"
+    fi
 else
     log_info "Poetry已安装: $(poetry --version)"
 fi
@@ -93,10 +108,21 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # 创建虚拟环境并安装依赖
 if [ -f "pyproject.toml" ]; then
-    poetry install --no-dev
-    log_success "Poetry依赖安装完成"
+    if command -v poetry &> /dev/null; then
+        log_info "使用Poetry安装依赖（可能需要几分钟）..."
+        poetry install --no-dev --no-interaction
+        log_success "Poetry依赖安装完成"
+    else
+        log_info "Poetry不可用，尝试使用pip安装..."
+        if [ -f "requirements.txt" ]; then
+            $PYTHON_CMD -m pip install -r requirements.txt --user --quiet
+        else
+            log_warning "无法使用Poetry且未找到requirements.txt，跳过依赖安装"
+        fi
+    fi
 elif [ -f "requirements.txt" ]; then
-    $PYTHON_CMD -m pip install -r requirements.txt
+    log_info "使用pip安装依赖..."
+    $PYTHON_CMD -m pip install -r requirements.txt --user --quiet
     log_success "pip依赖安装完成"
 else
     log_warning "未找到依赖文件，跳过依赖安装"
