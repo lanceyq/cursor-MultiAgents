@@ -46,7 +46,7 @@ def statement_data():
         "relevence_info": "RELEVANT",
     }
 
-# Tests for Edge
+# Tests for Edge - 测试HTTPS推送功能
 def test_edge_creation(basic_edge_data):
     edge = Edge(**basic_edge_data)
     assert edge.id == "edge1"
