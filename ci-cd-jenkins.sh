@@ -34,6 +34,20 @@ else
   PIP_CMD="$PYTHON_CMD -m pip"
 fi
 
+# Stage 0: 创建并启用虚拟环境（优先）
+VENV_DIR="$BUILD_DIR/venv"
+if $PYTHON_CMD -m venv "$VENV_DIR" 2>/dev/null; then
+  # shellcheck disable=SC1091
+  source "$VENV_DIR/bin/activate"
+  PYTHON_CMD=python
+  PIP_CMD=pip
+  log_info "已创建并启用虚拟环境: $VENV_DIR"
+  # 基础工具升级，提升安装成功率
+  $PYTHON_CMD -m pip install -U pip setuptools wheel
+else
+  log_warning "无法创建虚拟环境，将尝试使用系统环境安装（可能受 PEP 668 限制）"
+fi
+
 # Stage 1: 安装依赖
 log_info "Stage 1: 安装依赖"
 if [ -f "pyproject.toml" ]; then
@@ -42,7 +56,7 @@ if [ -f "pyproject.toml" ]; then
     if ! poetry install --no-interaction --no-root &> /dev/null; then
       log_warning "Poetry 安装失败，尝试使用 pip"
       if [ -f "requirements.txt" ]; then
-        $PIP_CMD install -r requirements.txt --quiet 2>/dev/null || $PIP_CMD install --user -r requirements.txt --quiet || true
+        $PIP_CMD install -r requirements.txt || $PYTHON_CMD -m pip install --user -r requirements.txt || $PYTHON_CMD -m pip install --break-system-packages -r requirements.txt || true
       else
         log_warning "未找到 requirements.txt"
       fi
@@ -50,21 +64,24 @@ if [ -f "pyproject.toml" ]; then
   else
     log_info "Poetry 不可用，尝试使用 pip"
     if [ -f "requirements.txt" ]; then
-      $PIP_CMD install -r requirements.txt --quiet 2>/dev/null || $PIP_CMD install --user -r requirements.txt --quiet || true
+      $PIP_CMD install -r requirements.txt || $PYTHON_CMD -m pip install --user -r requirements.txt || $PYTHON_CMD -m pip install --break-system-packages -r requirements.txt || true
     else
       log_warning "无法使用 Poetry 且未找到 requirements.txt，跳过依赖安装"
     fi
   fi
 elif [ -f "requirements.txt" ]; then
   log_info "使用 pip 安装依赖"
-  $PIP_CMD install -r requirements.txt --quiet 2>/dev/null || $PIP_CMD install --user -r requirements.txt --quiet || true
+  $PIP_CMD install -r requirements.txt || $PYTHON_CMD -m pip install --user -r requirements.txt || $PYTHON_CMD -m pip install --break-system-packages -r requirements.txt || true
 else
   log_warning "未找到依赖文件，跳过依赖安装"
 fi
 
 # 确保测试依赖
 log_info "确保测试依赖已安装（pytest/pytest-asyncio）"
-$PIP_CMD install pytest pytest-asyncio --quiet 2>/dev/null || $PIP_CMD install --user pytest pytest-asyncio --quiet 2>/dev/null || log_warning "测试依赖安装失败"
+$PYTHON_CMD -m pip install -U pytest pytest-asyncio pytest-cov \
+  || $PYTHON_CMD -m pip install --user -U pytest pytest-asyncio pytest-cov \
+  || $PYTHON_CMD -m pip install --break-system-packages -U pytest pytest-asyncio pytest-cov \
+  || log_warning "测试依赖安装失败"
 
 # Stage 2: 代码质量（可选，这里仅占位）
 log_info "Stage 2: 代码质量检查（可选，未启用）"
