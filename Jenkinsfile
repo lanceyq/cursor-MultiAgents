@@ -22,6 +22,33 @@ pipeline {
                 ])
             }
         }
+
+        stage('Validate Git Remote') {
+            steps {
+                echo 'Validating Git remote URL and connectivity...'
+                script {
+                    withCredentials([string(credentialsId: 'github-pat-credentials', variable: 'GITHUB_PAT')]) {
+                        if (isUnix()) {
+                            sh '''
+                                URL="https://github.com/lanceyq/cursor-MultiAgents.git"
+                                git ls-remote --heads "$URL" || {
+                                  AUTH_URL="https://oauth2:${GITHUB_PAT}@github.com/lanceyq/cursor-MultiAgents.git"
+                                  git ls-remote --heads "$AUTH_URL"
+                                }
+                            '''
+                        } else {
+                            bat '''
+                                set "URL=https://github.com/lanceyq/cursor-MultiAgents.git"
+                                git ls-remote --heads "%URL%" || (
+                                  set "AUTH_URL=https://oauth2:%GITHUB_PAT%@github.com/lanceyq/cursor-MultiAgents.git"
+                                  git ls-remote --heads "%AUTH_URL%"
+                                )
+                            '''
+                        }
+                    }
+                }
+            }
+        }
         
         stage('Setup Environment') {
             steps {
