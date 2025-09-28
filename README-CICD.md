@@ -135,6 +135,34 @@ ci-cd.bat
   - 若使用 `cleanWs()`，务必确保 `CACHE_DIR` 指向工作空间之外的持久目录，以免缓存被清理
   - 可以在 Pipeline 的环境变量中统一配置上述变量，确保不同 Stage 下生效
 
+### 在 Jenkins 自由格式（Freestyle）Job 中推送代码
+
+Jenkins Freestyle Job 没有 Pipeline 的 `stage` 概念，但可以通过“构建步骤（Build Steps）”或“构建后操作（Post-build Actions）”来执行推送操作。你可以使用本仓库提供的脚本，或使用 Git Publisher 插件。
+
+- 方式 A：使用本仓库脚本（推荐）
+  - Windows Agent（构建步骤选择“Execute Windows batch command”）：
+    ```bat
+    set GIT_BRANCH=memsci-project
+    set GIT_REMOTE_URL=https://github.com/lanceyq/cursor-MultiAgents.git
+    REM 如果使用PAT，可将完整地址绑定到环境变量：GIT_REMOTE_URL_AUTH
+    REM 例如： https://oauth2:YOUR_PAT@github.com/lanceyq/cursor-MultiAgents.git
+    scripts\git-push.bat
+    ```
+  - Linux/Unix Agent（构建步骤选择“Execute shell”）：
+    ```bash
+    export GIT_BRANCH=memsci-project
+    export GIT_REMOTE_URL=https://github.com/lanceyq/cursor-MultiAgents.git
+    bash scripts/git-push.sh
+    ```
+  - 说明：
+    - 脚本会在当前工作目录检测是否为Git仓库、修复远程地址、切/建分支并执行 `git push -u origin <branch>`。
+    - 若使用 HTTPS 推送，建议通过 Jenkins “Credentials -> Secret text” 绑定 PAT 到环境变量 `GIT_REMOTE_URL_AUTH`（完整含凭据的远程URL）。
+    - 若使用 SSH 推送，建议配置“SSH Agent”插件并将远程改为 `git@github.com:lanceyq/cursor-MultiAgents.git`。
+
+- 方式 B：使用 Git Publisher 插件（Freestyle 专用）
+  - 在“构建后操作（Post-build Actions）”中添加“Git Publisher”，配置要推送的分支或标签，并选择使用的凭据。
+  - 适合简单的推送需求，不需要自定义脚本。
+
 示例（Windows Pipeline 执行批处理）：
 
 ```bat
