@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
+# 测试hook
 set -euo pipefail
-#测试hook
+
 # 简易日志函数
 log_info() { echo "[INFO] $*"; }
 log_warning() { echo "[WARN] $*"; }
