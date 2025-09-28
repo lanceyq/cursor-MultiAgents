@@ -99,16 +99,17 @@ if [ -f "pyproject.toml" ]; then
       if [ -f "requirements.txt" ]; then
         $PIP_CMD install -r requirements.txt || $PYTHON_CMD -m pip install --user -r requirements.txt || $PYTHON_CMD -m pip install --break-system-packages -r requirements.txt || true
       else
-        log_warning "未找到 requirements.txt"
+        log_warning "未找到 requirements.txt，改用 pip 安装项目本体"
+        $PIP_CMD install . || $PYTHON_CMD -m pip install --user . || $PYTHON_CMD -m pip install --break-system-packages . || true
       fi
     fi
   else
-    log_info "Poetry 不可用，尝试使用 pip"
+    log_info "Poetry 不可用，使用 pip 安装项目（基于 pyproject.toml）"
     if [ -f "requirements.txt" ]; then
       $PIP_CMD install -r requirements.txt || $PYTHON_CMD -m pip install --user -r requirements.txt || $PYTHON_CMD -m pip install --break-system-packages -r requirements.txt || true
-    else
-      log_warning "无法使用 Poetry 且未找到 requirements.txt，跳过依赖安装"
     fi
+    # 无论是否有 requirements.txt，都尝试安装项目本体，确保运行时依赖（如 pydantic）就绪
+    $PIP_CMD install . || $PYTHON_CMD -m pip install --user . || $PYTHON_CMD -m pip install --break-system-packages . || true
   fi
 elif [ -f "requirements.txt" ]; then
   log_info "使用 pip 安装依赖"
