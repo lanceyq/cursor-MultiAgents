@@ -109,6 +109,50 @@ ci-cd.bat
 - Poetry（脚本会自动安装）
 - 代码质量检查工具（flake8、black等）
 
+## 依赖安装加速与缓存复用
+
+为支持“每次都新建并删除虚拟环境”的自动化测试场景，脚本已集成镜像源、持久缓存以及本地 wheel 仓库，显著缩短每次安装时间。
+
+- 镜像源配置（已内置，亦可覆盖）：
+  - `PIP_INDEX_URL`（默认 `https://pypi.tuna.tsinghua.edu.cn/simple`）
+  - `PIP_EXTRA_INDEX_URL`（默认 `https://pypi.org/simple`）
+
+- 持久缓存目录（推荐设置为 Jenkins 不会清理的路径）：
+  - `CACHE_DIR`：默认 `~/.cache/memsci`，脚本会自动将 `PIP_CACHE_DIR` 设置为 `CACHE_DIR/pip`、`POETRY_CACHE_DIR` 设置为 `CACHE_DIR/poetry`
+  - 示例：
+    - Windows Agent：`set CACHE_DIR=D:\jenkins-cache\memsci`
+    - Linux Agent：`export CACHE_DIR=/var/cache/jenkins/memsci`
+
+- 本地 wheel 仓库：
+  - 脚本会使用 `poetry export -f requirements.txt` 生成依赖清单，并在 `CACHE_DIR/wheels` 预编译 wheels（`pip wheel --prefer-binary`）
+  - 安装阶段优先使用本地 wheel 仓库（`pip install --no-index --find-links=CACHE_DIR/wheels -r requirements.txt`），避免重复下载与编译
+
+- 流程效果：
+  - 即使每次构建都新建/删除 venv，依赖安装将主要命中持久缓存与本地 wheels，实现快速安装
+  - 若依赖版本更新，仅编译/下载变化部分，其余依赖走缓存
+
+- Jenkins 注意事项：
+  - 若使用 `cleanWs()`，务必确保 `CACHE_DIR` 指向工作空间之外的持久目录，以免缓存被清理
+  - 可以在 Pipeline 的环境变量中统一配置上述变量，确保不同 Stage 下生效
+
+示例（Windows Pipeline 执行批处理）：
+
+```bat
+set CACHE_DIR=D:\jenkins-cache\memsci
+set PIP_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple
+set PIP_EXTRA_INDEX_URL=https://pypi.org/simple
+bash ci-cd-jenkins.sh
+```
+
+示例（Linux Agent）：
+
+```bash
+export CACHE_DIR=/var/cache/jenkins/memsci
+export PIP_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple
+export PIP_EXTRA_INDEX_URL=https://pypi.org/simple
+bash ci-cd-jenkins.sh
+```
+
 ## 配置选项
 
 ### 环境变量

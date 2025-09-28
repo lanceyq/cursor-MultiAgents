@@ -18,8 +18,8 @@ mkdir -p "$BUILD_DIR" "$DIST_DIR"
 
 # 清理与虚拟环境管理开关（可通过环境变量覆盖）
 CLEAN_BUILD_DIR="${CLEAN_BUILD_DIR:-false}"
-CLEAN_PREVIOUS_VENV="${CLEAN_PREVIOUS_VENV:-true}"
-REMOVE_VENV_ON_EXIT="${REMOVE_VENV_ON_EXIT:-true}"
+CLEAN_PREVIOUS_VENV="${CLEAN_PREVIOUS_VENV:-false}"
+REMOVE_VENV_ON_EXIT="${REMOVE_VENV_ON_EXIT:-false}"
 VENV_ACTIVE=false
 VENV_DIR="$BUILD_DIR/venv"
 
@@ -55,6 +55,38 @@ cleanup() {
   fi
 }
 trap cleanup EXIT
+
+# 全局加速与缓存复用配置
+# 默认在当前执行中保留虚拟环境与缓存（可通过环境变量覆盖）
+: "${REMOVE_VENV_ON_EXIT:=false}"
+export PIP_INDEX_URL=${PIP_INDEX_URL:-https://pypi.tuna.tsinghua.edu.cn/simple}
+export PIP_EXTRA_INDEX_URL=${PIP_EXTRA_INDEX_URL:-https://pypi.org/simple}
+log_info "已设置 pip 镜像: $PIP_INDEX_URL"
+
+# 为 Poetry 安装阶段准备镜像源（若项目未配置）
+ensure_poetry_source() {
+  if [ -f "pyproject.toml" ]; then
+    if ! grep -q "\[\[tool.poetry.source\]\]" pyproject.toml; then
+      log_info "为 Poetry 添加镜像源到 pyproject.toml"
+      cat >> pyproject.toml <<'EOF'
+[[tool.poetry.source]]
+name = "tsinghua"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+default = true
+EOF
+    else
+      log_info "检测到 Poetry 源配置，跳过添加"
+    fi
+  fi
+}
+
+# 持久缓存与本地 wheel 仓库（即使每次新建 venv 也能复用）
+CACHE_DIR=${CACHE_DIR:-"$HOME/.cache/memsci"}
+WHEEL_DIR="$CACHE_DIR/wheels"
+mkdir -p "$CACHE_DIR" "$WHEEL_DIR"
+export PIP_CACHE_DIR=${PIP_CACHE_DIR:-"$CACHE_DIR/pip"}
+export POETRY_CACHE_DIR=${POETRY_CACHE_DIR:-"$CACHE_DIR/poetry"}
+log_info "缓存目录: $CACHE_DIR; 轮子目录: $WHEEL_DIR"
 
 # 选择 Python / Pip 命令
 if command -v python3 &> /dev/null; then
@@ -94,26 +126,52 @@ log_info "Stage 1: 安装依赖"
 if [ -f "pyproject.toml" ]; then
   if command -v poetry &> /dev/null; then
     log_info "使用 Poetry 安装依赖"
-    if ! poetry install --no-interaction --no-root &> /dev/null; then
-      log_warning "Poetry 安装失败，尝试使用 pip"
-      if [ -f "requirements.txt" ]; then
-        $PIP_CMD install -r requirements.txt || $PYTHON_CMD -m pip install --user -r requirements.txt || $PYTHON_CMD -m pip install --break-system-packages -r requirements.txt || true
+    ensure_poetry_source
+    poetry lock || log_warning "Poetry lock 生成失败，继续安装"
+    # 优先走 wheelhouse 以加速新 venv 安装
+    if poetry export -f requirements.txt --without-hashes -o "$BUILD_DIR/requirements.txt"; then
+      log_info "已生成 requirements.txt，准备构建并复用本地 wheels"
+      $PIP_CMD wheel -r "$BUILD_DIR/requirements.txt" -w "$WHEEL_DIR" --prefer-binary || log_warning "预编译 wheels 失败，继续尝试安装"
+      if $PIP_CMD install --no-index --find-links="$WHEEL_DIR" -r "$BUILD_DIR/requirements.txt"; then
+        log_success "依赖已通过本地 wheelhouse 安装"
       else
-        log_warning "未找到 requirements.txt，改用 pip 安装项目本体"
-        $PIP_CMD install . || $PYTHON_CMD -m pip install --user . || $PYTHON_CMD -m pip install --break-system-packages . || true
+        log_warning "从 wheelhouse 安装失败，回退到 Poetry 安装"
+        if ! poetry install --no-interaction --no-root &> /dev/null; then
+          log_warning "Poetry 安装失败，尝试使用 pip"
+          if [ -f "requirements.txt" ]; then
+            $PIP_CMD install --prefer-binary -r requirements.txt || $PYTHON_CMD -m pip install --user -r requirements.txt || $PYTHON_CMD -m pip install --break-system-packages -r requirements.txt || true
+          else
+            log_warning "未找到 requirements.txt，改用 pip 安装项目本体"
+            $PIP_CMD install --prefer-binary . || $PYTHON_CMD -m pip install --user . || $PYTHON_CMD -m pip install --break-system-packages . || true
+          fi
+        fi
+      fi
+    else
+      log_warning "Poetry export 失败，改用 Poetry 安装"
+      if ! poetry install --no-interaction --no-root &> /dev/null; then
+        log_warning "Poetry 安装失败，尝试使用 pip"
+        if [ -f "requirements.txt" ]; then
+          $PIP_CMD install --prefer-binary -r requirements.txt || $PYTHON_CMD -m pip install --user -r requirements.txt || $PYTHON_CMD -m pip install --break-system-packages -r requirements.txt || true
+        else
+          log_warning "未找到 requirements.txt，改用 pip 安装项目本体"
+          $PIP_CMD install --prefer-binary . || $PYTHON_CMD -m pip install --user . || $PYTHON_CMD -m pip install --break-system-packages . || true
+        fi
       fi
     fi
   else
     log_info "Poetry 不可用，使用 pip 安装项目（基于 pyproject.toml）"
     if [ -f "requirements.txt" ]; then
-      $PIP_CMD install -r requirements.txt || $PYTHON_CMD -m pip install --user -r requirements.txt || $PYTHON_CMD -m pip install --break-system-packages -r requirements.txt || true
+      # 预编译并缓存 wheels，加速重复安装
+      $PIP_CMD wheel -r requirements.txt -w "$WHEEL_DIR" --prefer-binary || log_warning "预编译 wheels 失败，直接安装"
+      $PIP_CMD install --no-index --find-links="$WHEEL_DIR" -r requirements.txt || $PIP_CMD install --prefer-binary -r requirements.txt || $PYTHON_CMD -m pip install --user -r requirements.txt || $PYTHON_CMD -m pip install --break-system-packages -r requirements.txt || true
     fi
     # 无论是否有 requirements.txt，都尝试安装项目本体，确保运行时依赖（如 pydantic）就绪
-    $PIP_CMD install . || $PYTHON_CMD -m pip install --user . || $PYTHON_CMD -m pip install --break-system-packages . || true
+    $PIP_CMD install --prefer-binary . || $PYTHON_CMD -m pip install --user . || $PYTHON_CMD -m pip install --break-system-packages . || true
   fi
 elif [ -f "requirements.txt" ]; then
   log_info "使用 pip 安装依赖"
-  $PIP_CMD install -r requirements.txt || $PYTHON_CMD -m pip install --user -r requirements.txt || $PYTHON_CMD -m pip install --break-system-packages -r requirements.txt || true
+  $PIP_CMD wheel -r requirements.txt -w "$WHEEL_DIR" --prefer-binary || log_warning "预编译 wheels 失败，直接安装"
+  $PIP_CMD install --no-index --find-links="$WHEEL_DIR" -r requirements.txt || $PIP_CMD install --prefer-binary -r requirements.txt || $PYTHON_CMD -m pip install --user -r requirements.txt || $PYTHON_CMD -m pip install --break-system-packages -r requirements.txt || true
 else
   log_warning "未找到依赖文件，跳过依赖安装"
 fi
