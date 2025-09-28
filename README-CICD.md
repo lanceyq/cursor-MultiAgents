@@ -167,9 +167,9 @@ DIST_DIR="$WORKSPACE_DIR/dist"
 ```
 
 ### Git仓库配置
-如果需要修改Git仓库地址，请编辑脚本中的以下行：
+如果需要修改Git仓库地址，请编辑脚本中的以下行（使用可写的官方仓库地址，而非只读镜像）：
 ```bash
-git clone https://gitclone.com/github.com/lanceyq/cursor-MultiAgents.git temp_repo
+git clone https://github.com/lanceyq/cursor-MultiAgents.git temp_repo
 ```
 
 ## 故障排除

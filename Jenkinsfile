@@ -16,7 +16,7 @@ pipeline {
                     $class: 'GitSCM',
                     branches: [[name: '*/memsci-project']],
                     userRemoteConfigs: [[
-                        url: 'https://gitclone.com/github.com/lanceyq/cursor-MultiAgents.git',
+                        url: 'https://github.com/lanceyq/cursor-MultiAgents.git',
                         credentialsId: 'github-pat-credentials'
                     ]]
                 ])
