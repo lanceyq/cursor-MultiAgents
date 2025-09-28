@@ -16,6 +16,46 @@ COV_XML="$BUILD_DIR/coverage.xml"
 
 mkdir -p "$BUILD_DIR" "$DIST_DIR"
 
+# 清理与虚拟环境管理开关（可通过环境变量覆盖）
+CLEAN_BUILD_DIR="${CLEAN_BUILD_DIR:-false}"
+CLEAN_PREVIOUS_VENV="${CLEAN_PREVIOUS_VENV:-true}"
+REMOVE_VENV_ON_EXIT="${REMOVE_VENV_ON_EXIT:-true}"
+VENV_ACTIVE=false
+VENV_DIR="$BUILD_DIR/venv"
+
+# 可选：清理构建目录，确保环境整洁
+if [ "$CLEAN_BUILD_DIR" = "true" ]; then
+  log_info "清理构建目录: $BUILD_DIR"
+  rm -rf "$BUILD_DIR"
+  mkdir -p "$BUILD_DIR"
+fi
+
+# 预清理旧虚拟环境
+if [ "$CLEAN_PREVIOUS_VENV" = "true" ] && [ -d "$VENV_DIR" ]; then
+  log_info "清理旧虚拟环境: $VENV_DIR"
+  rm -rf "$VENV_DIR"
+fi
+
+# 如果当前 shell 已处于其他虚拟环境，提示但继续创建自建环境
+if [ -n "${VIRTUAL_ENV-}" ]; then
+  log_warning "检测到已有虚拟环境(${VIRTUAL_ENV})，将启用自建虚拟环境覆盖当前环境"
+fi
+
+# 退出时的清理逻辑：解除并删除虚拟环境
+cleanup() {
+  if [ "$VENV_ACTIVE" = true ]; then
+    if command -v deactivate >/dev/null 2>&1; then
+      deactivate || true
+      log_info "已解除虚拟环境"
+    fi
+  fi
+  if [ "$REMOVE_VENV_ON_EXIT" = "true" ] && [ -d "$VENV_DIR" ]; then
+    rm -rf "$VENV_DIR"
+    log_info "已删除虚拟环境目录: $VENV_DIR"
+  fi
+}
+trap cleanup EXIT
+
 # 选择 Python / Pip 命令
 if command -v python3 &> /dev/null; then
   PYTHON_CMD=python3
@@ -41,6 +81,7 @@ if $PYTHON_CMD -m venv "$VENV_DIR" 2>/dev/null; then
   source "$VENV_DIR/bin/activate"
   PYTHON_CMD=python
   PIP_CMD=pip
+  VENV_ACTIVE=true
   log_info "已创建并启用虚拟环境: $VENV_DIR"
   # 基础工具升级，提升安装成功率
   $PYTHON_CMD -m pip install -U pip setuptools wheel
